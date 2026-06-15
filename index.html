@@ -588,7 +588,8 @@
     aspect-ratio: 2130 / 4296;
   }
 
-  .iphone-air img {
+  .iphone-air img,
+  .iphone-air video {
     position: absolute;
     top: 2.35%;
     left: 5.63%;
@@ -598,8 +599,16 @@
     object-fit: cover;
     object-position: top center;
     border-radius: 8% / 3.7%;
-    background: #f3f4f8;
+    background: #0d1220;
     display: block;
+  }
+
+  .videos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 920px;
+    margin: 0 auto;
   }
 
   .iphone-air::after {
@@ -1026,6 +1035,7 @@
     .steps,
     .reviews,
     .screens,
+    .videos,
     .prices,
     .posts,
     .faq-grid,
@@ -1080,6 +1090,7 @@
         <a href="#funziona">Come funziona</a>
         <a href="#funzioni">Funzioni</a>
         <a href="#screenshot">Screenshot</a>
+        <a href="#video">Video</a>
         <a href="#contatti">Contatti</a>
         <a class="download" href="#scarica">Scarica</a>
       </nav>
@@ -1239,6 +1250,33 @@
               <img src="img/preview-preferiti.jpg?v=2" alt="Schermata scheda lido Coastly">
             </div>
           </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="video">
+      <div class="container">
+        <div class="section-title">
+          <span class="kicker">Video</span>
+          <h2>Coastly in azione.</h2>
+          <p>Guarda come funziona l'app: ricerca, mappa e schede dei lidi in pochi tocchi.</p>
+        </div>
+        <div class="videos">
+          <div class="iphone-air">
+            <video controls playsinline preload="metadata">
+              <source src="video/promo-1.mp4#t=0.1" type="video/mp4">
+            </video>
+          </div>
+          <div class="iphone-air">
+            <video controls playsinline preload="metadata">
+              <source src="video/promo-2.mp4#t=0.1" type="video/mp4">
+            </video>
+          </div>
+          <div class="iphone-air">
+            <video controls playsinline preload="metadata">
+              <source src="video/promo-3.mp4#t=0.1" type="video/mp4">
+            </video>
+          </div>
         </div>
       </div>
     </section>
