@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coastly - Tutti i lidi d'Italia</title>
+<meta name="description" content="Coastly ti aiuta a trovare stabilimenti balneari, servizi, contatti e recensioni lungo tutta la costa italiana.">
+<meta name="theme-color" content="#0a2a6c">
+<style>
+  :root {
+    --navy: #0a2a6c;
+    --blue: #0b74df;
+    --aqua: #00a6c8;
+    --coral: #ff6f61;
+    --gold: #f6b73c;
+    --green: #34a853;
+    --ink: #172033;
+    --muted: #697386;
+    --line: rgba(23, 32, 51, .12);
+    --soft: #f5f8fb;
+    --white: #ffffff;
+    --shadow: 0 22px 60px rgba(10, 42, 108, .16);
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Arial, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
+
+  .container {
+    width: min(1140px, calc(100% - 40px));
+    margin: 0 auto;
+  }
+
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background: rgba(255, 255, 255, .9);
+    border-bottom: 1px solid rgba(255, 255, 255, .34);
+    backdrop-filter: blur(18px);
+  }
+
+  .topbar-inner {
+    height: 74px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--navy);
+  }
+
+  .brand img {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    font-size: .93rem;
+    font-weight: 700;
+    color: #41506a;
+  }
+
+  .nav a:hover {
+    color: var(--blue);
+  }
+
+  .nav .download {
+    color: var(--white);
+    background: var(--coral);
+    border-radius: 8px;
+    padding: 10px 16px;
+    box-shadow: 0 12px 28px rgba(255, 111, 97, .24);
+  }
+
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    padding: 104px 0 42px;
+    overflow: hidden;
+    color: var(--white);
+    background:
+      linear-gradient(90deg, rgba(7, 24, 55, .92), rgba(7, 35, 84, .68) 46%, rgba(6, 71, 114, .08)),
+      url("img/preview-home.jpg") center / cover no-repeat;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 86px;
+    background: var(--white);
+    clip-path: polygon(0 58%, 13% 48%, 31% 62%, 51% 44%, 70% 58%, 88% 40%, 100% 55%, 100% 100%, 0 100%);
+  }
+
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 390px;
+    align-items: center;
+    gap: 68px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 22px;
+    color: #c9f5ff;
+    font-size: .86rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 38px;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin-top: 0;
+  }
+
+  .hero h1 {
+    max-width: 650px;
+    margin-bottom: 22px;
+    font-size: clamp(2.75rem, 6vw, 5.6rem);
+    line-height: .98;
+    font-weight: 900;
+  }
+
+  .hero-text {
+    max-width: 570px;
+    margin-bottom: 32px;
+    color: rgba(255, 255, 255, .84);
+    font-size: 1.15rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .store-button,
+  .outline-button,
+  .solid-button {
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 8px;
+    border: 0;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .store-button {
+    width: 192px;
+    min-width: 192px;
+    min-height: auto;
+    padding: 0;
+    color: var(--white);
+    background: transparent;
+    box-shadow: 0 20px 42px rgba(0, 0, 0, .22);
+    overflow: hidden;
+  }
+
+  .store-button img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .outline-button {
+    padding: 12px 20px;
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, .5);
+    background: rgba(255, 255, 255, .1);
+  }
+
+  .solid-button {
+    padding: 12px 20px;
+    color: var(--white);
+    background: var(--navy);
+  }
+
+  .phone-stage {
+    position: relative;
+    min-height: 560px;
+  }
+
+  .phone {
+    width: 306px;
+    margin-left: auto;
+    border: 10px solid #090c14;
+    border-radius: 42px;
+    background: #090c14;
+    box-shadow: 0 34px 80px rgba(0, 0, 0, .36);
+    overflow: hidden;
+  }
+
+  .screen {
+    height: 500px;
+    border-radius: 31px;
+    overflow: hidden;
+    color: var(--ink);
+    background: #f2f6fb;
+  }
+
+  .screen-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .status {
+    height: 42px;
+    padding: 14px 22px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: .74rem;
+    font-weight: 800;
+    background: var(--white);
+  }
+
+  .screen-head {
+    padding: 10px 18px 18px;
+    background: var(--white);
+  }
+
+  .screen-head-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--navy);
+    font-weight: 900;
+  }
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--navy);
+    color: var(--white);
+    font-size: .8rem;
+  }
+
+  .screen h3 {
+    margin: 14px 0 4px;
+    font-size: 1.38rem;
+    line-height: 1.1;
+  }
+
+  .screen p {
+    color: var(--muted);
+    font-size: .9rem;
+    margin-bottom: 14px;
+  }
+
+  .search {
+    height: 42px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 13px;
+    color: #8a93a3;
+    background: #eef3f9;
+    font-weight: 700;
+    font-size: .84rem;
+  }
+
+  .screen-body {
+    padding: 14px 16px;
+  }
+
+  .section-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .section-row strong {
+    font-size: .98rem;
+  }
+
+  .section-row span {
+    color: var(--blue);
+    font-weight: 800;
+    font-size: .78rem;
+  }
+
+  .app-card {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: 10px;
+    padding: 9px;
+    margin-bottom: 9px;
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 10px 28px rgba(10, 42, 108, .08);
+  }
+
+  .app-card img {
+    width: 76px;
+    height: 68px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .app-card h4 {
+    margin: 2px 0 2px;
+    font-size: .93rem;
+  }
+
+  .rating {
+    color: var(--gold);
+    font-weight: 900;
+    font-size: .83rem;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .tag-list span {
+    padding: 4px 7px;
+    border-radius: 6px;
+    background: #eef6ff;
+    color: var(--navy);
+    font-size: .67rem;
+    font-weight: 800;
+  }
+
+  .weather {
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 8px;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--blue), var(--aqua));
+  }
+
+  .weather-top,
+  .weather-mid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .weather-top {
+    font-size: .76rem;
+    font-weight: 900;
+    opacity: .9;
+  }
+
+  .weather-mid strong {
+    font-size: 1.8rem;
+  }
+
+  .weather-mid span {
+    font-weight: 800;
+  }
+
+  .floating-shot {
+    position: absolute;
+    right: 210px;
+    bottom: 42px;
+    width: 168px;
+    border: 7px solid #090c14;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 28px 64px rgba(0, 0, 0, .32);
+  }
+
+  .floating-shot img {
+    width: 100%;
+    height: 248px;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .header-device-main {
+    width: 306px;
+    max-width: 306px;
+    margin-left: auto;
+  }
+
+  .header-device-small {
+    position: absolute;
+    right: 210px;
+    bottom: 42px;
+    z-index: 3;
+    width: 168px;
+    max-width: 168px;
+  }
+
+  .header-device-main img {
+    height: 500px;
+    aspect-ratio: auto;
+  }
+
+  .header-device-small img {
+    height: 248px;
+    aspect-ratio: auto;
+  }
+
+  .section {
+    padding: 86px 0;
+  }
+
+  .section.alt {
+    background: var(--soft);
+  }
+
+  .section-title {
+    max-width: 690px;
+    margin: 0 auto 52px;
+    text-align: center;
+  }
+
+  .kicker {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: var(--coral);
+    font-weight: 900;
+    font-size: .78rem;
+    text-transform: uppercase;
+  }
+
+  .section-title h2 {
+    margin-bottom: 12px;
+    color: var(--navy);
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    line-height: 1.08;
+  }
+
+  .section-title p {
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: center;
+  }
+
+  .step,
+  .feature,
+  .review,
+  .price,
+  .faq-item,
+  .post,
+  .contact-box {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 18px 46px rgba(10, 42, 108, .08);
+  }
+
+  .step {
+    padding: 28px;
+    text-align: center;
+  }
+
+  .icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+    color: var(--navy);
+    background: transparent;
+  }
+
+  .icon svg {
+    width: 38px;
+    height: 38px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .step h3,
+  .feature h3,
+  .review h3,
+  .price h3,
+  .post h3 {
+    margin-bottom: 8px;
+    color: var(--navy);
+  }
+
+  .step p,
+  .feature p,
+  .review p,
+  .price li,
+  .faq-item p,
+  .post p {
+    color: var(--muted);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .feature {
+    padding: 28px;
+  }
+
+  .feature .icon {
+    margin-left: 0;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 58px;
+    align-items: center;
+  }
+
+  .media-collage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-items: center;
+  }
+
+  .iphone-air {
+    position: relative;
+    width: 100%;
+    max-width: 265px;
+    margin: 0 auto;
+    padding: 8px;
+    border-radius: 38px;
+    background: linear-gradient(145deg, #f7f9fc, #9da7b8 28%, #111827 62%, #eef3f8);
+    box-shadow: 0 34px 70px rgba(10, 42, 108, .2), inset 0 0 0 1px rgba(255, 255, 255, .55);
+  }
+
+  .iphone-air::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    z-index: 2;
+    width: 86px;
+    height: 25px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: #05070a;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .08);
+  }
+
+  .iphone-air::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border-radius: 35px;
+    border: 1px solid rgba(255, 255, 255, .36);
+    pointer-events: none;
+  }
+
+  .iphone-air img {
+    width: 100%;
+    aspect-ratio: 9 / 19.5;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 30px;
+    background: #f3f4f8;
+  }
+
+  .media-collage .iphone-air:nth-child(2) {
+    transform: translateY(34px);
+  }
+
+  .check-list {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 30px;
+  }
+
+  .check-list li {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 13px;
+    color: #3a465c;
+    font-weight: 700;
+  }
+
+  .check-list li::before {
+    content: "✓";
+    width: 24px;
+    height: 24px;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    color: var(--navy);
+    background: transparent;
+    font-size: 1.05rem;
+    font-weight: 900;
+  }
+
+  .stats-band {
+    position: relative;
+    overflow: hidden;
+    color: var(--white);
+    background:
+      linear-gradient(90deg, rgba(10, 42, 108, .94), rgba(0, 166, 200, .82)),
+      url("img/lido2.jpg") center / cover no-repeat;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+  }
+
+  .stat strong {
+    display: block;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1;
+  }
+
+  .stat span {
+    color: rgba(255, 255, 255, .82);
+    font-weight: 800;
+  }
+
+  .reviews {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .review {
+    padding: 28px;
+  }
+
+  .stars {
+    color: var(--gold);
+    font-weight: 900;
+    margin-bottom: 14px;
+  }
+
+  .person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .person span {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    color: var(--white);
+    background: var(--navy);
+    border-radius: 50%;
+    font-weight: 900;
+  }
+
+  .screens {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .shot {
+    position: relative;
+    overflow: hidden;
+    min-height: 390px;
+    border-radius: 8px;
+    background: #0d1220;
+    box-shadow: var(--shadow);
+  }
+
+  .shot img {
+    width: 100%;
+    height: 100%;
+    min-height: 390px;
+    object-fit: cover;
+    opacity: .82;
+  }
+
+  .shot-label {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    padding: 12px;
+    border-radius: 8px;
+    color: var(--white);
+    background: rgba(7, 16, 35, .72);
+    backdrop-filter: blur(10px);
+  }
+
+  .shot-label strong,
+  .shot-label span {
+    display: block;
+  }
+
+  .shot-label span {
+    color: rgba(255, 255, 255, .72);
+    font-size: .82rem;
+  }
+
+  .newsletter {
+    padding: 44px;
+    border-radius: 8px;
+    color: var(--white);
+    background:
+      linear-gradient(90deg, rgba(10, 42, 108, .94), rgba(11, 116, 223, .86)),
+      url("img/lido3.jpg") center / cover no-repeat;
+    display: grid;
+    grid-template-columns: 1fr minmax(280px, 420px);
+    gap: 28px;
+    align-items: center;
+  }
+
+  .newsletter h2 {
+    margin-bottom: 8px;
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+  }
+
+  .newsletter p {
+    margin-bottom: 0;
+    color: rgba(255, 255, 255, .82);
+  }
+
+  .signup {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+
+  .signup input {
+    min-width: 0;
+    border: 0;
+    border-radius: 8px;
+    padding: 0 16px;
+    min-height: 52px;
+  }
+
+  .signup button {
+    border: 0;
+    border-radius: 8px;
+    padding: 0 18px;
+    color: var(--white);
+    background: var(--coral);
+    font-weight: 900;
+  }
+
+  .prices,
+  .posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .price {
+    position: relative;
+    padding: 32px;
+  }
+
+  .price.popular {
+    border-color: rgba(255, 111, 97, .7);
+    transform: translateY(-12px);
+  }
+
+  .badge {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    padding: 5px 9px;
+    border-radius: 6px;
+    color: var(--white);
+    background: var(--coral);
+    font-size: .72rem;
+    font-weight: 900;
+  }
+
+  .amount {
+    margin: 18px 0;
+    color: var(--navy);
+    font-size: 2.8rem;
+    font-weight: 900;
+  }
+
+  .amount small {
+    color: var(--muted);
+    font-size: .92rem;
+    font-weight: 800;
+  }
+
+  .price ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+  }
+
+  .price li {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .faq-item {
+    padding: 24px;
+  }
+
+  .faq-item h3 {
+    margin-bottom: 8px;
+    color: var(--navy);
+    font-size: 1.05rem;
+  }
+
+  .post {
+    overflow: hidden;
+  }
+
+  .post img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+  }
+
+  .post-body {
+    padding: 24px;
+  }
+
+  .date {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--coral);
+    font-weight: 900;
+    font-size: .78rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: .82fr 1.18fr;
+    gap: 24px;
+  }
+
+  .contact-box {
+    padding: 30px;
+  }
+
+  .contact-list {
+    display: grid;
+    gap: 18px;
+  }
+
+  .contact-list strong {
+    display: block;
+    color: var(--navy);
+  }
+
+  .contact-list span,
+  .contact-list a {
+    color: var(--muted);
+  }
+
+  .contact-form {
+    display: grid;
+    gap: 12px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 15px;
+    color: var(--ink);
+    background: var(--white);
+  }
+
+  .contact-form textarea {
+    min-height: 128px;
+    resize: vertical;
+  }
+
+  .footer {
+    color: rgba(255, 255, 255, .78);
+    background: #07142b;
+    padding: 38px 0;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+  }
+
+  .footer .brand {
+    color: var(--white);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 980px) {
+    .nav {
+      gap: 14px;
+      font-size: .86rem;
+    }
+
+    .hero-grid,
+    .split,
+    .newsletter,
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .phone-stage {
+      min-height: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone {
+      margin: 0;
+    }
+
+    .floating-shot,
+    .header-device-small {
+      display: none;
+    }
+
+    .feature-grid,
+    .steps,
+    .reviews,
+    .prices,
+    .posts {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .screens {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .container {
+      width: min(100% - 28px, 1140px);
+    }
+
+    .topbar-inner {
+      height: 66px;
+    }
+
+    .nav a:not(.download) {
+      display: none;
+    }
+
+    .nav .download {
+      padding: 9px 12px;
+    }
+
+    .hero {
+      min-height: calc(100svh - 36px);
+      padding: 96px 0 72px;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: block;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.45rem, 13vw, 4.2rem);
+    }
+
+    .phone-stage {
+      display: none;
+    }
+
+    .section {
+      padding: 64px 0;
+    }
+
+    .feature-grid,
+    .steps,
+    .reviews,
+    .screens,
+    .prices,
+    .posts,
+    .faq-grid,
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .price.popular {
+      transform: none;
+    }
+
+    .media-collage {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .iphone-air {
+      max-width: 250px;
+    }
+
+    .media-collage .iphone-air:nth-child(2) {
+      transform: none;
+    }
+
+    .newsletter {
+      padding: 30px;
+    }
+
+    .signup {
+      grid-template-columns: 1fr;
+    }
+
+    .signup button {
+      min-height: 50px;
+    }
+
+    .footer-inner {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#home" aria-label="Coastly home">
+        <img src="img/logo.png" alt="">
+        <span>Coastly</span>
+      </a>
+      <nav class="nav" aria-label="Navigazione principale">
+        <a href="#funziona">Come funziona</a>
+        <a href="#funzioni">Funzioni</a>
+        <a href="#screenshot">Screenshot</a>
+        <a href="#contatti">Contatti</a>
+        <a class="download" href="#scarica">Scarica</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">App per spiagge italiane</span>
+          <h1>Trova il tuo lido perfetto in pochi secondi.</h1>
+          <p class="hero-text">Coastly raccoglie stabilimenti balneari, servizi, foto, recensioni e contatti in un'unica app pensata per chi vive il mare italiano.</p>
+          <div class="actions" id="scarica">
+            <a class="store-button" href="#" aria-label="Scarica Coastly su App Store">
+              <img src="img/app-store-coastly.png" alt="Scarica su App Store">
+            </a>
+            <a class="outline-button" href="#funziona">Scopri Coastly</a>
+          </div>
+        </div>
+
+        <div class="phone-stage" aria-label="Anteprima app Coastly">
+          <div class="iphone-air header-device-small">
+            <img src="img/header-mare-coastly.jpg" alt="Schermata mare in tempo reale di Coastly">
+          </div>
+          <div class="iphone-air header-device-main">
+            <img src="img/header-detail-coastly.jpg" alt="Schermata dettaglio Coastly Beach Club">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="funziona">
+      <div class="container">
+        <div class="section-title">
+          <span class="kicker">Come funziona</span>
+          <h2>Dal desiderio di mare alla scelta giusta.</h2>
+          <p>Una landing in stile app, ma con contenuti Coastly: chiara, veloce e orientata alla conversione.</p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg></div>
+            <h3>Cerca</h3>
+            <p>Inserisci località, stabilimento o servizio e trova subito le opzioni più vicine.</p>
+          </article>
+          <article class="step">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <h3>Confronta</h3>
+            <p>Guarda foto, servizi, recensioni, distanza e contatti prima di partire.</p>
+          </article>
+          <article class="step">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
+            <h3>Salva</h3>
+            <p>Tieni i preferiti a portata di mano e ricevi aggiornamenti dai lidi che ami.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="funzioni">
+      <div class="container">
+        <div class="section-title">
+          <span class="kicker">Funzioni</span>
+          <h2>Un'app disegnata per la costa italiana.</h2>
+          <p>Gli elementi principali del tema AppMe vengono reinterpretati con un'identità più balneare, pulita e pronta per Coastly.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18 3 21V6l6-3 6 3 6-3v15l-6 3-6-3Z"/><path d="M9 3v15M15 6v15"/></svg></div>
+            <h3>10.000 lidi</h3>
+            <p>Stabilimenti e spiagge attrezzate organizzati per posizione, servizi e categoria.</p>
+          </article>
+          <article class="feature">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><path d="M4.9 4.9 19.1 19.1M19.1 4.9 4.9 19.1"/></svg></div>
+            <h3>Filtri rapidi</h3>
+            <p>Bar, parcheggio, accessibilità, ristorante, ombrelloni, lettini e servizi speciali.</p>
+          </article>
+          <article class="feature">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.7-7.1-.6L12 2 9.1 8.7 2 9.3 7.4 14l-1.6 7 6.2-3.7Z"/></svg></div>
+            <h3>Recensioni</h3>
+            <p>Feedback e punteggi per scegliere con più fiducia la tua giornata al mare.</p>
+          </article>
+          <article class="feature">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg></div>
+            <h3>Contatto diretto</h3>
+            <p>Chiama, visita il sito o apri le indicazioni in un tap dalla scheda del lido.</p>
+          </article>
+          <article class="feature">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 7h18s-3 0-3-7"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+            <h3>Notifiche</h3>
+            <p>Eventi, offerte e aggiornamenti inviati dai lidi che hai salvato nei preferiti.</p>
+          </article>
+          <article class="feature">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20c2-2 4-2 6 0s4 2 6 0 4-2 8 0"/><path d="M2 14c2-2 4-2 6 0s4 2 6 0 4-2 8 0"/><path d="M12 4v7"/><path d="M8 8h8"/></svg></div>
+            <h3>Spiagge segrete</h3>
+            <p>Una sezione dedicata a calette, spot speciali e luoghi suggeriti dalla community.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container split">
+        <div class="media-collage">
+          <div class="iphone-air">
+            <img src="img/section-dettaglio.jpg" alt="Schermata dettaglio Coastly Beach Club">
+          </div>
+          <div class="iphone-air">
+            <img src="img/section-aggiungi.jpg" alt="Schermata aggiungi struttura Coastly">
+          </div>
+        </div>
+        <div>
+          <span class="kicker">Per utenti e gestori</span>
+          <h2>Schede chiare, prenotazioni più semplici, clienti più vicini.</h2>
+          <p>Coastly diventa il punto d'ingresso tra chi cerca una spiaggia e chi la gestisce. Ogni scheda può raccontare servizi, foto, contatti e aggiornamenti importanti.</p>
+          <ul class="check-list">
+            <li>Foto e servizi sempre ben visibili</li>
+            <li>Recensioni e preferiti per creare fiducia</li>
+            <li>Notifiche push per offerte, eventi e disponibilità</li>
+          </ul>
+          <a class="solid-button" href="mailto:info@coastly.eu?subject=Voglio%20rivendicare%20il%20mio%20lido">Rivendica il tuo lido</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section stats-band">
+      <div class="container stats-grid">
+        <div class="stat"><strong>10.000</strong><span>lidi mappati</span></div>
+        <div class="stat"><strong>20</strong><span>regioni coperte</span></div>
+        <div class="stat"><strong>7.500</strong><span>km di costa</span></div>
+        <div class="stat"><strong>4.8</strong><span>rating medio</span></div>
+      </div>
+    </section>
+
+    <section class="section alt" id="screenshot">
+      <div class="container">
+        <div class="section-title">
+          <span class="kicker">Screenshot</span>
+          <h2>Una preview visiva dell'esperienza.</h2>
+          <p>Quattro momenti chiave per mostrare ricerca, schede, preferiti e scoperta delle spiagge.</p>
+        </div>
+        <div class="screens">
+          <figure class="shot">
+            <img src="img/preview-home.jpg" alt="Schermata home Coastly">
+            <figcaption class="shot-label"><strong>Esplora</strong><span>Lidi vicino a te</span></figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/preview-mappa.jpg" alt="Schermata mappa Coastly">
+            <figcaption class="shot-label"><strong>Mappa</strong><span>Risultati nella zona</span></figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/preview-mare.jpg" alt="Schermata mare in tempo reale Coastly">
+            <figcaption class="shot-label"><strong>Mare</strong><span>Dati in tempo reale</span></figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/preview-preferiti.jpg" alt="Schermata preferiti Coastly">
+            <figcaption class="shot-label"><strong>Preferiti</strong><span>I lidi salvati</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="newsletter">
+          <div>
+            <h2>Ricevi aggiornamenti Coastly.</h2>
+            <p>Novità sull'app, nuove località coperte e strumenti dedicati ai gestori.</p>
+          </div>
+          <form class="signup" action="mailto:info@coastly.eu" method="post" enctype="text/plain">
+            <input type="email" name="email" placeholder="La tua email" aria-label="La tua email">
+            <button type="submit">Iscriviti</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <span class="kicker">FAQ</span>
+          <h2>Domande frequenti.</h2>
+          <p>Risposte rapide per utenti e gestori che vogliono capire Coastly al volo.</p>
+        </div>
+        <div class="faq-grid">
+          <article class="faq-item">
+            <h3>Coastly è gratis?</h3>
+            <p>L'app è pensata per essere gratuita per chi cerca lidi. I gestori possono partire con una scheda base gratuita.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Posso rivendicare il mio stabilimento?</h3>
+            <p>Sì. Puoi contattare Coastly e richiedere l'attivazione della scheda ufficiale del tuo lido.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Le informazioni sono aggiornabili?</h3>
+            <p>Le schede possono includere contatti, servizi, immagini, periodi di apertura e aggiornamenti stagionali.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Funziona in tutta Italia?</h3>
+            <p>Coastly nasce per coprire tutta la costa italiana, con migliaia di stabilimenti e località balneari.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contatti">
+      <div class="container">
+        <div class="section-title">
+          <span class="kicker">Contatti</span>
+          <h2>Parliamo di Coastly.</h2>
+          <p>Richiedi informazioni, segnala un lido o avvia la rivendicazione della tua scheda.</p>
+        </div>
+        <div class="contact-grid">
+          <aside class="contact-box contact-list">
+            <div><strong>Email</strong><a href="mailto:info@coastly.eu">info@coastly.eu</a></div>
+            <div><strong>Area</strong><span>Tutta la costa italiana</span></div>
+            <div><strong>Per gestori</strong><span>Rivendicazione schede e notifiche locali</span></div>
+          </aside>
+          <form class="contact-box contact-form" action="https://formspree.io/f/mykaoyjq" method="POST">
+            <input name="nome" type="text" placeholder="Nome" aria-label="Nome" required>
+            <input name="email" type="email" placeholder="Email" aria-label="Email" required>
+            <textarea name="messaggio" placeholder="Messaggio" aria-label="Messaggio" required></textarea>
+            <button class="solid-button" type="submit">Invia messaggio</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a class="brand" href="#home">
+        <img src="img/logo.png" alt="">
+        <span>Coastly</span>
+      </a>
+      <div>© <span id="year"></span> Coastly. Tutti i lidi d'Italia.</div>
+      <nav class="footer-links" aria-label="Link footer">
+        <a href="#funzioni">Funzioni</a>
+        <a href="#contatti">Contatti</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="termini.html">Termini</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
