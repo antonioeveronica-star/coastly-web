@@ -5,24 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coastly — Trova il tuo lido perfetto in tutta Italia</title>
 <meta name="description" content="Coastly è l'app che riunisce migliaia di stabilimenti balneari italiani: servizi, foto, recensioni, dati del mare in tempo reale e contatti, in un unico posto.">
-<meta name="theme-color" content="#0a2a6c">
+<meta name="theme-color" content="#2e71f1">
 <link rel="icon" type="image/png" href="img/logo.png">
 <link rel="apple-touch-icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0a2a6c;
-    --blue: #0b74df;
-    --aqua: #00a6c8;
-    --coral: #0a2a6c;
-    --gold: #f6b73c;
-    --green: #34a853;
-    --ink: #172033;
-    --muted: #697386;
-    --line: rgba(23, 32, 51, .12);
-    --soft: #ffffff;
+    --blue: #2e71f1;
+    --blue-dark: #1e5cd6;
+    --ink: #222222;
+    --text: #333333;
+    --muted: #757575;
+    --soft-muted: #999999;
+    --kicker: #c0c4cc;
+    --lightgrey: #f8f9fb;
+    --line: #e8eaef;
     --white: #ffffff;
-    --shadow: 0 22px 60px rgba(10, 42, 108, .16);
-    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Arial, sans-serif;
+    --font: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   }
 
   * {
@@ -36,9 +37,11 @@
   body {
     margin: 0;
     font-family: var(--font);
-    color: var(--ink);
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--text);
     background: var(--white);
-    line-height: 1.55;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -58,24 +61,86 @@
     font: inherit;
   }
 
+  h1, h2, h3, h4, h5, p, ul {
+    margin-top: 0;
+  }
+
+  h1, h2 {
+    color: var(--ink);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
   .container {
     width: min(1140px, calc(100% - 40px));
     margin: 0 auto;
   }
 
+  /* ===== Bottoni pillola (stile NextApp) ===== */
+  .btn {
+    display: inline-block;
+    padding: 14px 30px;
+    border-radius: 100px;
+    border: 2px solid transparent;
+    font-size: 13.2px;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .3s ease, color .3s ease, border-color .3s ease;
+  }
+
+  .btn-blue {
+    color: var(--white);
+    background: var(--blue);
+    border-color: var(--blue);
+  }
+
+  .btn-blue:hover {
+    background: var(--blue-dark);
+    border-color: var(--blue-dark);
+  }
+
+  .btn-outline {
+    color: #000;
+    background: transparent;
+    border-color: #000;
+  }
+
+  .btn-outline:hover {
+    color: var(--white);
+    background: #000;
+  }
+
+  .btn-outline-white {
+    color: var(--white);
+    background: transparent;
+    border-color: var(--white);
+  }
+
+  .btn-outline-white:hover {
+    color: var(--ink);
+    background: var(--white);
+  }
+
+  /* ===== Header ===== */
   .topbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 20;
-    background: rgba(255, 255, 255, .9);
-    border-bottom: 1px solid rgba(255, 255, 255, .34);
-    backdrop-filter: blur(18px);
+    background: var(--white);
+    transition: box-shadow .3s ease;
+  }
+
+  .topbar.scrolled {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
   }
 
   .topbar-inner {
-    height: 74px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -86,503 +151,118 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-weight: 800;
-    font-size: 1.2rem;
-    color: var(--navy);
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--ink);
+    letter-spacing: -0.5px;
   }
 
   .brand img {
     width: 38px;
     height: 38px;
-    border-radius: 8px;
   }
 
   .nav {
     display: flex;
     align-items: center;
-    gap: 26px;
-    font-size: .93rem;
-    font-weight: 700;
-    color: #41506a;
+    gap: 34px;
+    font-size: 13.2px;
+    font-weight: 500;
+    letter-spacing: 0.25px;
+    text-transform: uppercase;
+    color: var(--text);
   }
 
-  .nav a:hover {
+  .nav a:not(.store-badge):hover {
     color: var(--blue);
   }
 
-  .nav .download {
-    color: var(--white);
-    background: var(--coral);
-    border-radius: 8px;
-    padding: 10px 16px;
-    box-shadow: 0 12px 28px rgba(255, 111, 97, .24);
+  .nav .store-badge img {
+    width: 134px;
+    height: auto;
+    border-radius: 7px;
   }
 
+  /* ===== Hero (hero-6: bianco, centrato, telefoni sotto) ===== */
   .hero {
-    position: relative;
-    min-height: 90vh;
-    padding: 104px 0 42px;
-    overflow: hidden;
-    color: var(--white);
-    background:
-      linear-gradient(90deg, rgba(7, 24, 55, .55), rgba(7, 35, 84, .30) 50%, rgba(6, 71, 114, .05)),
-      url("img/hero.jpg?v=2") center 60% / cover no-repeat;
-    background-attachment: fixed;
-  }
-
-  .hero::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    height: 86px;
+    padding: 170px 0 60px;
     background: var(--white);
-    clip-path: polygon(0 58%, 13% 48%, 31% 62%, 51% 44%, 70% 58%, 88% 40%, 100% 55%, 100% 100%, 0 100%);
+    text-align: center;
+    overflow: hidden;
   }
 
-  .hero-grid {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 390px;
-    align-items: center;
-    gap: 68px;
-  }
-
-  .eyebrow {
+  .hero-badge {
     display: inline-flex;
     align-items: center;
-    gap: 9px;
-    margin-bottom: 22px;
-    color: #c9f5ff;
-    font-size: .86rem;
-    font-weight: 800;
+    gap: 10px;
+    padding: 7px 18px;
+    margin-bottom: 30px;
+    border-radius: 100px;
+    background: var(--lightgrey);
+    border: 1px solid var(--line);
+    font-size: 13.2px;
+    font-weight: 500;
+    letter-spacing: 0.25px;
     text-transform: uppercase;
+    color: var(--muted);
   }
 
-  .eyebrow::before {
-    content: "";
-    width: 38px;
-    height: 2px;
-    background: var(--gold);
-  }
-
-  h1,
-  h2,
-  h3,
-  p {
-    margin-top: 0;
+  .hero-badge strong {
+    color: var(--blue);
+    font-weight: 700;
   }
 
   .hero h1 {
-    max-width: 650px;
-    margin-bottom: 22px;
-    font-size: clamp(2.75rem, 6vw, 5.6rem);
-    line-height: .98;
-    font-weight: 900;
+    max-width: 800px;
+    margin: 0 auto 24px;
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
   }
 
   .hero-text {
-    max-width: 570px;
-    margin-bottom: 32px;
-    color: rgba(255, 255, 255, .84);
-    font-size: 1.15rem;
+    max-width: 640px;
+    margin: 0 auto 34px;
+    color: var(--muted);
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.65;
   }
 
   .actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 14px;
-  }
-
-  .store-button,
-  .outline-button,
-  .solid-button {
-    display: inline-flex;
-    min-height: 50px;
-    align-items: center;
     justify-content: center;
-    gap: 10px;
-    border-radius: 8px;
-    border: 0;
-    font-weight: 800;
-    cursor: pointer;
+    gap: 14px;
+    margin-bottom: 70px;
   }
 
-  .store-button {
-    width: 192px;
-    min-width: 192px;
-    min-height: auto;
-    padding: 0;
-    color: var(--white);
-    background: transparent;
-    box-shadow: 0 20px 42px rgba(0, 0, 0, .22);
-    overflow: hidden;
-  }
-
-  .store-button img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-
-  .outline-button {
-    padding: 12px 20px;
-    color: var(--white);
-    border: 1px solid rgba(255, 255, 255, .5);
-    background: rgba(255, 255, 255, .1);
-  }
-
-  .solid-button {
-    padding: 12px 20px;
-    color: var(--white);
-    background: var(--navy);
-  }
-
-  .phone-stage {
+  .hero-phones {
     position: relative;
-    min-height: 560px;
-  }
-
-  .phone {
-    width: 306px;
-    margin-left: auto;
-    border: 10px solid #090c14;
-    border-radius: 42px;
-    background: #090c14;
-    box-shadow: 0 34px 80px rgba(0, 0, 0, .36);
-    overflow: hidden;
-  }
-
-  .screen {
-    height: 500px;
-    border-radius: 31px;
-    overflow: hidden;
-    color: var(--ink);
-    background: #f2f6fb;
-  }
-
-  .screen-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
-  }
-
-  .status {
-    height: 42px;
-    padding: 14px 22px 0;
     display: flex;
-    justify-content: space-between;
-    font-size: .74rem;
-    font-weight: 800;
-    background: var(--white);
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
   }
 
-  .screen-head {
-    padding: 10px 18px 18px;
-    background: var(--white);
+  .hero-phones .iphone-air {
+    width: 300px;
   }
 
-  .screen-head-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--navy);
-    font-weight: 900;
+  .hero-phones .iphone-air:first-child {
+    transform: translate(40px, 55px) rotate(-6deg);
+    z-index: 1;
   }
 
-  .avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: var(--navy);
-    color: var(--white);
-    font-size: .8rem;
+  .hero-phones .iphone-air:last-child {
+    transform: translateX(-40px);
+    z-index: 2;
   }
 
-  .screen h3 {
-    margin: 14px 0 4px;
-    font-size: 1.38rem;
-    line-height: 1.1;
+  .hero-cta-video {
+    margin-top: 84px;
   }
 
-  .screen p {
-    color: var(--muted);
-    font-size: .9rem;
-    margin-bottom: 14px;
-  }
-
-  .search {
-    height: 42px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0 13px;
-    color: #8a93a3;
-    background: #eef3f9;
-    font-weight: 700;
-    font-size: .84rem;
-  }
-
-  .screen-body {
-    padding: 14px 16px;
-  }
-
-  .section-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  .section-row strong {
-    font-size: .98rem;
-  }
-
-  .section-row span {
-    color: var(--blue);
-    font-weight: 800;
-    font-size: .78rem;
-  }
-
-  .app-card {
-    display: grid;
-    grid-template-columns: 76px 1fr;
-    gap: 10px;
-    padding: 9px;
-    margin-bottom: 9px;
-    border-radius: 8px;
-    background: var(--white);
-    box-shadow: 0 10px 28px rgba(10, 42, 108, .08);
-  }
-
-  .app-card img {
-    width: 76px;
-    height: 68px;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-
-  .app-card h4 {
-    margin: 2px 0 2px;
-    font-size: .93rem;
-  }
-
-  .rating {
-    color: var(--gold);
-    font-weight: 900;
-    font-size: .83rem;
-  }
-
-  .tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 8px;
-  }
-
-  .tag-list span {
-    padding: 4px 7px;
-    border-radius: 6px;
-    background: #eef6ff;
-    color: var(--navy);
-    font-size: .67rem;
-    font-weight: 800;
-  }
-
-  .weather {
-    padding: 12px;
-    margin-top: 12px;
-    border-radius: 8px;
-    color: var(--white);
-    background: linear-gradient(135deg, var(--blue), var(--aqua));
-  }
-
-  .weather-top,
-  .weather-mid {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .weather-top {
-    font-size: .76rem;
-    font-weight: 900;
-    opacity: .9;
-  }
-
-  .weather-mid strong {
-    font-size: 1.8rem;
-  }
-
-  .weather-mid span {
-    font-weight: 800;
-  }
-
-  .floating-shot {
-    position: absolute;
-    right: 210px;
-    bottom: 42px;
-    width: 168px;
-    border: 7px solid #090c14;
-    border-radius: 28px;
-    overflow: hidden;
-    box-shadow: 0 28px 64px rgba(0, 0, 0, .32);
-  }
-
-  .floating-shot img {
-    width: 100%;
-    height: 248px;
-    object-fit: cover;
-    object-position: top center;
-  }
-
-  .header-device-main {
-    width: 306px;
-    max-width: 306px;
-    margin-left: auto;
-  }
-
-  .header-device-small {
-    position: absolute;
-    right: 210px;
-    bottom: 42px;
-    z-index: 3;
-    width: 168px;
-    max-width: 168px;
-  }
-
-
-  .section {
-    padding: 86px 0;
-  }
-
-  .section.alt {
-    background: var(--soft);
-  }
-
-  .section-title {
-    max-width: 690px;
-    margin: 0 auto 52px;
-    text-align: center;
-  }
-
-  .kicker {
-    display: inline-block;
-    margin-bottom: 12px;
-    color: var(--coral);
-    font-weight: 900;
-    font-size: .78rem;
-    text-transform: uppercase;
-  }
-
-  .section-title h2 {
-    margin-bottom: 12px;
-    color: var(--navy);
-    font-size: clamp(2rem, 4vw, 3.1rem);
-    line-height: 1.08;
-  }
-
-  .section-title p {
-    color: var(--muted);
-    font-size: 1.05rem;
-  }
-
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    align-items: center;
-  }
-
-  .step,
-  .feature,
-  .review,
-  .price,
-  .faq-item,
-  .post,
-  .contact-box {
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--white);
-    box-shadow: 0 18px 46px rgba(10, 42, 108, .08);
-  }
-
-  .step {
-    padding: 28px;
-    text-align: center;
-  }
-
-  .icon {
-    width: 54px;
-    height: 54px;
-    margin: 0 auto 18px;
-    display: grid;
-    place-items: center;
-    color: var(--navy);
-    background: rgba(10, 42, 108, .07);
-    border-radius: 15px;
-  }
-
-  .icon svg {
-    width: 27px;
-    height: 27px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .step h3,
-  .feature h3,
-  .review h3,
-  .price h3,
-  .post h3 {
-    margin-bottom: 8px;
-    color: var(--navy);
-  }
-
-  .step p,
-  .feature p,
-  .review p,
-  .price li,
-  .faq-item p,
-  .post p {
-    color: var(--muted);
-  }
-
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .feature {
-    padding: 28px;
-  }
-
-  .feature .icon {
-    margin-left: 0;
-  }
-
-  .split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 58px;
-    align-items: center;
-  }
-
-  .media-collage {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 22px;
-    align-items: center;
-  }
-
+  /* ===== Cornice iPhone (asset Coastly) ===== */
   .iphone-air {
     position: relative;
     width: 100%;
@@ -606,14 +286,6 @@
     display: block;
   }
 
-  .videos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    max-width: 920px;
-    margin: 0 auto;
-  }
-
   .iphone-air::after {
     content: "";
     position: absolute;
@@ -623,285 +295,337 @@
     pointer-events: none;
   }
 
-  .media-collage .iphone-air:nth-child(2) {
-    transform: translateY(34px);
+  /* ===== Sezioni ===== */
+  .section {
+    padding: 100px 0 60px;
   }
 
-  .check-list {
-    list-style: none;
-    padding: 0;
-    margin: 24px 0 30px;
+  .section.tall {
+    padding-bottom: 100px;
   }
 
-  .check-list li {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 13px;
-    color: #3a465c;
+  .section.grey {
+    background: var(--lightgrey);
+  }
+
+  .section.pattern {
+    background-color: var(--white);
+    background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
+  }
+
+  .section-id {
+    display: block;
+    margin-bottom: 26px;
+    font-size: 13.2px;
     font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--kicker);
   }
 
-  .check-list li::before {
-    content: "✓";
-    width: 24px;
-    height: 24px;
-    flex: 0 0 auto;
-    display: grid;
-    place-items: center;
-    color: var(--navy);
-    background: transparent;
-    font-size: 1.05rem;
-    font-weight: 900;
+  .section-title {
+    max-width: 720px;
+    margin: 0 auto 70px;
+    text-align: center;
   }
 
-  .stats-band {
-    position: relative;
-    overflow: hidden;
-    color: var(--white);
-    background:
-      linear-gradient(90deg, rgba(10, 42, 108, .94), rgba(0, 166, 200, .82)),
-      url("img/lido2.jpg") center / cover no-repeat;
+  .section-title h2 {
+    margin-bottom: 22px;
+    font-size: clamp(1.9rem, 3.6vw, 2.75rem);
   }
 
+  .section-title p {
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.65;
+    margin-bottom: 0;
+  }
+
+  /* ===== Statistiche (features-1) ===== */
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 40px;
     text-align: center;
   }
 
   .stat strong {
     display: block;
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 6px;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 900;
     line-height: 1;
+    color: var(--blue);
+    letter-spacing: -1px;
   }
 
   .stat span {
-    color: rgba(255, 255, 255, .82);
-    font-weight: 800;
+    display: block;
+    color: var(--muted);
+    font-size: 16px;
+    font-weight: 400;
   }
 
-  .reviews {
+  /* ===== Split due colonne (info-1 / info-2) ===== */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+  }
+
+  .split h2 {
+    margin-bottom: 24px;
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  }
+
+  .split > div > p {
+    color: var(--muted);
+    font-size: 17px;
+    margin-bottom: 28px;
+  }
+
+  .split .phone-col .iphone-air {
+    max-width: 300px;
+  }
+
+  /* Passi numerati */
+  .numbered {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 36px;
+    display: grid;
+    gap: 26px;
+  }
+
+  .numbered li {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .numbered .num {
+    flex: 0 0 auto;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--blue);
+    line-height: 1.25;
+  }
+
+  .numbered h3 {
+    margin: 0 0 4px;
+    color: var(--ink);
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .numbered p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  /* ===== Feature flat con icona (fbox-2) ===== */
+  .feature-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 55px 45px;
   }
 
-  .review {
-    padding: 28px;
-  }
-
-  .stars {
-    color: var(--gold);
-    font-weight: 900;
-    margin-bottom: 14px;
-  }
-
-  .person {
+  .fbox {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 18px;
+    gap: 22px;
+    align-items: flex-start;
   }
 
-  .person span {
-    width: 42px;
-    height: 42px;
+  .fbox .icon {
+    flex: 0 0 auto;
+    width: 52px;
+    height: 52px;
     display: grid;
     place-items: center;
-    color: var(--white);
-    background: var(--navy);
-    border-radius: 50%;
-    font-weight: 900;
+    color: var(--blue);
   }
 
+  .fbox .icon svg {
+    width: 44px;
+    height: 44px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .fbox h3 {
+    margin: 0 0 8px;
+    color: var(--ink);
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .fbox p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  /* Check list flat */
+  .check-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 36px;
+    display: grid;
+    gap: 15px;
+  }
+
+  .check-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .check-list li::before {
+    content: "✓";
+    flex: 0 0 auto;
+    color: var(--blue);
+    font-weight: 900;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  /* ===== Screenshot / video ===== */
   .screens {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 30px;
   }
 
-  .shot {
+  .screens .iphone-air {
+    max-width: 240px;
+  }
+
+  .videos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ===== Download CTA (download-5, parallax) ===== */
+  .download-cta {
     position: relative;
-  }
-
-  .shot-label {
-    position: absolute;
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
-    padding: 12px;
-    border-radius: 8px;
-    color: var(--white);
-    background: rgba(7, 16, 35, .72);
-    backdrop-filter: blur(10px);
-  }
-
-  .shot-label strong,
-  .shot-label span {
-    display: block;
-  }
-
-  .shot-label span {
-    color: rgba(255, 255, 255, .72);
-    font-size: .82rem;
-  }
-
-  .newsletter {
-    padding: 44px;
-    border-radius: 8px;
+    padding: 120px 0;
+    text-align: center;
     color: var(--white);
     background:
-      linear-gradient(90deg, rgba(10, 42, 108, .94), rgba(11, 116, 223, .86)),
+      linear-gradient(rgba(10, 20, 40, .62), rgba(10, 20, 40, .62)),
       url("img/lido3.jpg") center / cover no-repeat;
+    background-attachment: fixed;
+  }
+
+  .download-cta h2 {
+    color: var(--white);
+    max-width: 700px;
+    margin: 0 auto 20px;
+    font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+  }
+
+  .download-cta p {
+    max-width: 560px;
+    margin: 0 auto 36px;
+    color: rgba(255, 255, 255, .8);
+    font-size: 17px;
+  }
+
+  .download-cta .actions {
+    margin-bottom: 0;
+  }
+
+  .store-button img {
+    width: 190px;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  /* ===== FAQ flat (faqs-2) ===== */
+  .faq-grid {
     display: grid;
-    grid-template-columns: 1fr minmax(280px, 420px);
-    gap: 28px;
+    grid-template-columns: 1fr 1fr;
+    gap: 45px 70px;
+  }
+
+  .faq-item h3 {
+    margin: 0 0 10px;
+    color: var(--ink);
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .faq-item p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  /* ===== Newsletter (newsletter-2) ===== */
+  .newsletter {
+    display: grid;
+    grid-template-columns: 1fr minmax(300px, 460px);
+    gap: 40px;
     align-items: center;
   }
 
   .newsletter h2 {
-    margin-bottom: 8px;
-    font-size: clamp(1.8rem, 4vw, 2.7rem);
+    margin-bottom: 12px;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
   }
 
   .newsletter p {
-    margin-bottom: 0;
-    color: rgba(255, 255, 255, .82);
+    margin: 0;
+    color: var(--muted);
   }
 
   .signup {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 10px;
+    display: flex;
+    gap: 0;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 6px;
   }
 
   .signup input {
+    flex: 1;
     min-width: 0;
     border: 0;
-    border-radius: 8px;
-    padding: 0 16px;
-    min-height: 52px;
+    outline: none;
+    background: transparent;
+    padding: 0 20px;
+    min-height: 46px;
+    font-weight: 300;
   }
 
-  .signup button {
-    border: 0;
-    border-radius: 8px;
-    padding: 0 18px;
-    color: var(--white);
-    background: var(--coral);
-    font-weight: 900;
+  .signup .btn {
+    padding: 12px 26px;
   }
 
-  .prices,
-  .posts {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .price {
-    position: relative;
-    padding: 32px;
-  }
-
-  .price.popular {
-    border-color: rgba(255, 111, 97, .7);
-    transform: translateY(-12px);
-  }
-
-  .badge {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    padding: 5px 9px;
-    border-radius: 6px;
-    color: var(--white);
-    background: var(--coral);
-    font-size: .72rem;
-    font-weight: 900;
-  }
-
-  .amount {
-    margin: 18px 0;
-    color: var(--navy);
-    font-size: 2.8rem;
-    font-weight: 900;
-  }
-
-  .amount small {
-    color: var(--muted);
-    font-size: .92rem;
-    font-weight: 800;
-  }
-
-  .price ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 24px;
-  }
-
-  .price li {
-    padding: 9px 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .faq-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-  }
-
-  .faq-item {
-    padding: 24px;
-  }
-
-  .faq-item h3 {
-    margin-bottom: 8px;
-    color: var(--navy);
-    font-size: 1.05rem;
-  }
-
-  .post {
-    overflow: hidden;
-  }
-
-  .post img {
-    width: 100%;
-    height: 210px;
-    object-fit: cover;
-  }
-
-  .post-body {
-    padding: 24px;
-  }
-
-  .date {
-    display: block;
-    margin-bottom: 10px;
-    color: var(--coral);
-    font-weight: 900;
-    font-size: .78rem;
-  }
-
+  /* ===== Contatti ===== */
   .contact-grid {
     display: grid;
-    grid-template-columns: .82fr 1.18fr;
-    gap: 24px;
-  }
-
-  .contact-box {
-    padding: 30px;
+    grid-template-columns: .8fr 1.2fr;
+    gap: 70px;
+    align-items: start;
   }
 
   .contact-list {
     display: grid;
-    gap: 18px;
+    gap: 26px;
   }
 
   .contact-list strong {
     display: block;
-    color: var(--navy);
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 2px;
   }
 
   .contact-list span,
@@ -909,51 +633,93 @@
     color: var(--muted);
   }
 
+  .contact-list a:hover {
+    color: var(--blue);
+  }
+
   .contact-form {
     display: grid;
-    gap: 12px;
+    gap: 16px;
   }
 
   .contact-form input,
   .contact-form textarea {
     width: 100%;
     border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 14px 15px;
-    color: var(--ink);
+    border-radius: 12px;
+    padding: 15px 18px;
+    color: var(--text);
     background: var(--white);
+    font-weight: 300;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--blue);
   }
 
   .contact-form textarea {
-    min-height: 128px;
+    min-height: 140px;
     resize: vertical;
   }
 
-  .footer {
-    color: rgba(255, 255, 255, .78);
-    background: #07142b;
-    padding: 38px 0;
+  .contact-form .btn {
+    justify-self: start;
   }
 
-  .footer-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 22px;
+  /* ===== Footer chiaro a colonne ===== */
+  .footer {
+    background: var(--white);
+    border-top: 1px solid var(--line);
+    padding: 80px 0 0;
+    color: var(--muted);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 56px;
   }
 
   .footer .brand {
-    color: var(--white);
+    margin-bottom: 16px;
   }
 
-  .footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px;
+  .footer-blurb {
+    max-width: 300px;
+    margin: 0;
+  }
+
+  .footer h4 {
+    margin: 6px 0 18px;
+    color: var(--ink);
+    font-size: 19px;
     font-weight: 700;
   }
 
-  /* Animazioni reveal allo scroll — stesse curve/keyframes del tema NextApp (WOW.js + animate.css) */
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 11px;
+  }
+
+  .footer-col a:hover {
+    color: var(--blue);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--line);
+    padding: 26px 0;
+    text-align: center;
+    color: var(--soft-muted);
+    font-size: 14px;
+  }
+
+  /* ===== Animazioni reveal allo scroll (WOW.js + animate.css del tema) ===== */
   @keyframes fadeInUp {
     from { opacity: 0; transform: translate3d(0, 30%, 0); }
     to { opacity: 1; transform: none; }
@@ -988,27 +754,6 @@
     animation: none;
   }
 
-  .step,
-  .feature,
-  .review,
-  .faq-item,
-  .post {
-    transition: transform .35s ease, box-shadow .35s ease;
-  }
-
-  .step:hover,
-  .feature:hover,
-  .review:hover,
-  .faq-item:hover,
-  .post:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 26px 60px rgba(10, 42, 108, .14);
-  }
-
-  .stats-band {
-    background-attachment: fixed;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .wow {
       visibility: visible;
@@ -1018,53 +763,41 @@
     .wow.animated {
       animation: none !important;
     }
-
-    .step:hover,
-    .feature:hover,
-    .review:hover,
-    .faq-item:hover,
-    .post:hover {
-      transform: none;
-    }
   }
 
+  /* ===== Responsive ===== */
   @media (max-width: 980px) {
     .nav {
-      gap: 14px;
-      font-size: .86rem;
+      gap: 18px;
     }
 
-    .hero-grid,
+    .nav .store-badge img {
+      width: 118px;
+    }
+
     .split,
     .newsletter,
     .contact-grid {
       grid-template-columns: 1fr;
     }
 
-    .phone-stage {
-      min-height: auto;
-      display: flex;
-      justify-content: center;
+    .split {
+      gap: 50px;
     }
 
-    .phone {
-      margin: 0;
+    .feature-grid {
+      grid-template-columns: 1fr 1fr;
     }
 
-    .floating-shot,
-    .header-device-small {
-      display: none;
-    }
-
-    .feature-grid,
-    .steps,
-    .reviews,
-    .prices,
-    .posts {
+    .stats-grid {
       grid-template-columns: 1fr 1fr;
     }
 
     .screens {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-grid {
       grid-template-columns: 1fr 1fr;
     }
   }
@@ -1075,89 +808,80 @@
     }
 
     .topbar-inner {
-      height: 66px;
+      height: 68px;
     }
 
-    .nav a:not(.download) {
+    .nav a:not(.store-badge) {
       display: none;
-    }
-
-    .nav .download {
-      padding: 9px 12px;
     }
 
     .hero {
-      min-height: calc(100svh - 36px);
-      padding: 96px 0 72px;
-      display: flex;
-      align-items: center;
-      background-attachment: scroll;
+      padding: 130px 0 40px;
     }
 
-    .stats-band {
-      background-attachment: scroll;
+    .hero-phones .iphone-air {
+      width: 180px;
     }
 
-    .hero-grid {
-      display: block;
+    .hero-phones .iphone-air:first-child {
+      transform: translate(26px, 34px) rotate(-6deg);
     }
 
-    .hero h1 {
-      font-size: clamp(2.45rem, 13vw, 4.2rem);
+    .hero-phones .iphone-air:last-child {
+      transform: translateX(-26px);
     }
 
-    .phone-stage {
-      display: none;
+    .hero-cta-video {
+      margin-top: 60px;
     }
 
     .section {
-      padding: 64px 0;
+      padding: 70px 0 40px;
+    }
+
+    .section.tall {
+      padding-bottom: 70px;
+    }
+
+    .section-title {
+      margin-bottom: 50px;
     }
 
     .feature-grid,
-    .steps,
-    .reviews,
+    .stats-grid,
     .screens,
     .videos,
-    .prices,
-    .posts,
-    .faq-grid,
-    .stats-grid {
+    .faq-grid {
       grid-template-columns: 1fr;
     }
 
-    .price.popular {
-      transform: none;
+    .feature-grid {
+      gap: 36px;
     }
 
-    .media-collage {
-      grid-template-columns: 1fr;
-      gap: 28px;
-    }
-
-    .iphone-air {
+    .screens .iphone-air,
+    .videos .iphone-air {
       max-width: 250px;
     }
 
-    .media-collage .iphone-air:nth-child(2) {
-      transform: none;
-    }
-
-    .newsletter {
-      padding: 30px;
+    .download-cta {
+      background-attachment: scroll;
+      padding: 90px 0;
     }
 
     .signup {
-      grid-template-columns: 1fr;
-    }
-
-    .signup button {
-      min-height: 50px;
-    }
-
-    .footer-inner {
-      align-items: flex-start;
       flex-direction: column;
+      border-radius: 24px;
+      gap: 8px;
+    }
+
+    .signup input {
+      text-align: center;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 34px;
     }
   }
 </style>
@@ -1175,173 +899,202 @@
         <a href="#screenshot">Screenshot</a>
         <a href="#video">Video</a>
         <a href="#contatti">Contatti</a>
-        <a class="download" href="https://apps.apple.com/it/app/coastly/id6778557562" target="_blank" rel="noopener">Scarica</a>
+        <a class="store-badge" href="https://apps.apple.com/it/app/coastly/id6778557562" target="_blank" rel="noopener" aria-label="Scarica Coastly su App Store">
+          <img src="img/app-store-coastly.png" alt="Scarica su App Store">
+        </a>
       </nav>
     </div>
   </header>
 
   <main id="home">
+    <!-- HERO — stile hero-6: bianco, centrato, telefoni in basso -->
     <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="eyebrow wow fadeInUp" data-wow-delay="300ms">Tutto il mare italiano in un'app</span>
-          <h1 class="wow fadeInUp" data-wow-delay="400ms">Trova il tuo lido perfetto in pochi secondi.</h1>
-          <p class="hero-text wow fadeInUp" data-wow-delay="600ms">Migliaia di stabilimenti balneari italiani con servizi, foto, recensioni e dati del mare in tempo reale, riuniti in un'unica app. Cerca, confronta e salva i tuoi preferiti.</p>
-          <div class="actions wow fadeInUp" data-wow-delay="800ms" id="scarica">
-            <a class="store-button" href="https://apps.apple.com/it/app/coastly/id6778557562" target="_blank" rel="noopener" aria-label="Scarica Coastly su App Store">
-              <img src="img/app-store-coastly.png" alt="Scarica su App Store">
-            </a>
-            <a class="outline-button" href="#funziona">Scopri Coastly</a>
-          </div>
-        </div>
-
-        <div class="phone-stage" aria-label="Anteprima app Coastly">
-          <div class="iphone-air header-device-main wow fadeInRight" data-wow-delay="500ms">
-            <img src="img/header-detail-coastly.jpg" alt="Schermata dettaglio Coastly Beach Club">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="funziona">
       <div class="container">
-        <div class="section-title">
-          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Come funziona</span>
-          <h2 class="wow fadeInUp" data-wow-delay="400ms">Dall'idea di mare alla scelta giusta, in tre passi.</h2>
-          <p class="wow fadeInUp" data-wow-delay="500ms">Trovare il lido perfetto non è mai stato così semplice: cerca, confronta e salva in pochi tocchi.</p>
+        <span class="hero-badge wow fadeInUp" data-wow-delay="300ms"><strong>Nuovo</strong> Tutto il mare italiano in un'app</span>
+        <h1 class="wow fadeInUp" data-wow-delay="400ms">Trova il tuo lido perfetto in pochi secondi</h1>
+        <p class="hero-text wow fadeInUp" data-wow-delay="600ms">Migliaia di stabilimenti balneari italiani con servizi, foto, recensioni e dati del mare in tempo reale, riuniti in un'unica app. Cerca, confronta e salva i tuoi preferiti.</p>
+        <div class="actions wow fadeInUp" data-wow-delay="800ms" id="scarica">
+          <a class="btn btn-blue" href="https://apps.apple.com/it/app/coastly/id6778557562" target="_blank" rel="noopener">Scarica l'app</a>
+          <a class="btn btn-outline" href="#funziona">Scopri Coastly</a>
         </div>
-        <div class="steps">
-          <article class="step wow fadeInUp" data-wow-delay="300ms">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg></div>
-            <h3>Cerca</h3>
-            <p>Cerca per località, nome o servizio e scopri subito gli stabilimenti più vicini a te.</p>
-          </article>
-          <article class="step wow fadeInUp" data-wow-delay="300ms">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
-            <h3>Confronta</h3>
-            <p>Confronta foto, servizi, recensioni e distanza per scegliere con sicurezza, prima di partire.</p>
-          </article>
-          <article class="step wow fadeInUp" data-wow-delay="300ms">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
-            <h3>Salva</h3>
-            <p>Salva i tuoi lidi preferiti e ricevi aggiornamenti su offerte, eventi e disponibilità.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt" id="funzioni">
-      <div class="container">
-        <div class="section-title">
-          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Funzioni</span>
-          <h2 class="wow fadeInUp" data-wow-delay="400ms">Pensata su misura per la costa italiana.</h2>
-          <p class="wow fadeInUp" data-wow-delay="500ms">Tutto ciò che serve per vivere il mare al meglio, in un'unica esperienza curata nei dettagli.</p>
-        </div>
-        <div class="feature-grid">
-          <article class="feature wow fadeInUp" data-wow-delay="300ms">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16"/><path d="M9 20h6"/><path d="M3.5 11a8.5 8.5 0 0 1 17 0c-2-1.4-4-1.4-6 0-1.5-1.4-3.5-1.4-5 0-2-1.4-4-1.4-6 0Z"/></svg></div>
-            <h3>11.000+ lidi</h3>
-            <p>Stabilimenti e spiagge attrezzate di tutta Italia, organizzati per posizione, servizi e categoria.</p>
-          </article>
-          <article class="feature wow fadeInUp" data-wow-delay="300ms">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg></div>
-            <h3>Filtri rapidi</h3>
-            <p>Filtra per bar, ristorante, parcheggio, accessibilità, ombrelloni, lettini e altri servizi.</p>
-          </article>
-          <article class="feature wow fadeInUp" data-wow-delay="300ms">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-            <h3>Recensioni</h3>
-            <p>Opinioni e valutazioni reali per scegliere con fiducia la tua giornata al mare.</p>
-          </article>
-          <article class="feature wow fadeInUp" data-wow-delay="300ms">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-            <h3>Contatto diretto</h3>
-            <p>Chiama, visita il sito o ottieni le indicazioni con un tocco, direttamente dalla scheda.</p>
-          </article>
-          <article class="feature wow fadeInUp" data-wow-delay="300ms">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
-            <h3>Notifiche</h3>
-            <p>Ricevi eventi, offerte e novità in tempo reale dagli stabilimenti che hai salvato.</p>
-          </article>
-          <article class="feature wow fadeInUp" data-wow-delay="300ms">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
-            <h3>Spiagge segrete</h3>
-            <p>Calette, spot nascosti e luoghi speciali suggeriti dalla community di Coastly.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container split">
-        <div class="media-collage wow fadeInLeft" data-wow-delay="300ms">
-          <div class="iphone-air">
-            <img src="img/section-dettaglio.jpg" alt="Schermata dettaglio Coastly Beach Club">
-          </div>
+        <div class="hero-phones wow fadeInUp" data-wow-delay="1000ms" aria-label="Anteprima app Coastly">
           <div class="iphone-air">
             <img src="img/section-aggiungi.jpg" alt="Schermata aggiungi struttura Coastly">
           </div>
+          <div class="iphone-air">
+            <img src="img/header-detail-coastly.jpg" alt="Schermata dettaglio Coastly Beach Club">
+          </div>
+        </div>
+        <div class="hero-cta-video wow fadeInUp" data-wow-delay="300ms">
+          <a class="btn btn-outline" href="#video">Guarda Coastly in azione</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATISTICHE — stile features-1: grigio chiaro, numeri grandi -->
+    <section class="section grey tall">
+      <div class="container">
+        <div class="section-title">
+          <span class="section-id wow fadeInUp" data-wow-delay="300ms">Il mare italiano in numeri</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Un'app più completa, per tutta la costa</h2>
+          <p class="wow fadeInUp" data-wow-delay="500ms">Coastly copre l'intera costa italiana con dati aggiornati su stabilimenti, servizi e condizioni del mare.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat wow fadeInUp" data-wow-delay="300ms"><strong class="counter" data-target="11000" data-suffix="+">11.000+</strong><span>lidi mappati</span></div>
+          <div class="stat wow fadeInUp" data-wow-delay="400ms"><strong class="counter" data-target="15">15</strong><span>regioni costiere</span></div>
+          <div class="stat wow fadeInUp" data-wow-delay="500ms"><strong class="counter" data-target="7500">7.500</strong><span>km di costa</span></div>
+          <div class="stat wow fadeInUp" data-wow-delay="600ms"><strong class="counter" data-target="4.8" data-decimals="1">4.8</strong><span>rating medio</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COME FUNZIONA — stile info-1: telefono a sinistra, passi numerati -->
+    <section class="section" id="funziona">
+      <div class="container split">
+        <div class="phone-col wow fadeInUp" data-wow-delay="300ms">
+          <div class="iphone-air">
+            <img src="img/section-dettaglio.jpg" alt="Schermata dettaglio Coastly Beach Club">
+          </div>
         </div>
         <div>
-          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Per utenti e gestori</span>
-          <h2 class="wow fadeInUp" data-wow-delay="400ms">Schede chiare, clienti più vicini, gestione più semplice.</h2>
+          <span class="section-id wow fadeInUp" data-wow-delay="300ms">Come funziona</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Dall'idea di mare alla scelta giusta, in tre passi</h2>
+          <ul class="numbered">
+            <li class="wow fadeInUp" data-wow-delay="600ms">
+              <span class="num">01.</span>
+              <div>
+                <h3>Cerca</h3>
+                <p>Cerca per località, nome o servizio e scopri subito gli stabilimenti più vicini a te.</p>
+              </div>
+            </li>
+            <li class="wow fadeInUp" data-wow-delay="700ms">
+              <span class="num">02.</span>
+              <div>
+                <h3>Confronta</h3>
+                <p>Confronta foto, servizi, recensioni e distanza per scegliere con sicurezza, prima di partire.</p>
+              </div>
+            </li>
+            <li class="wow fadeInUp" data-wow-delay="800ms">
+              <span class="num">03.</span>
+              <div>
+                <h3>Salva</h3>
+                <p>Salva i tuoi lidi preferiti e ricevi aggiornamenti su offerte, eventi e disponibilità.</p>
+              </div>
+            </li>
+          </ul>
+          <a class="btn btn-outline wow fadeInUp" data-wow-delay="900ms" href="#funzioni">Scopri di più</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUNZIONI — stile features-5: pattern, feature flat con icona a sinistra -->
+    <section class="section pattern tall" id="funzioni">
+      <div class="container">
+        <div class="section-title">
+          <span class="section-id wow fadeInUp" data-wow-delay="300ms">Funzioni</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Pensata su misura per la costa italiana</h2>
+          <p class="wow fadeInUp" data-wow-delay="500ms">Tutto ciò che serve per vivere il mare al meglio, in un'unica esperienza curata nei dettagli.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="fbox wow fadeInUp" data-wow-delay="300ms">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16"/><path d="M9 20h6"/><path d="M3.5 11a8.5 8.5 0 0 1 17 0c-2-1.4-4-1.4-6 0-1.5-1.4-3.5-1.4-5 0-2-1.4-4-1.4-6 0Z"/></svg></div>
+            <div>
+              <h3>11.000+ lidi</h3>
+              <p>Stabilimenti e spiagge attrezzate di tutta Italia, organizzati per posizione, servizi e categoria.</p>
+            </div>
+          </article>
+          <article class="fbox wow fadeInUp" data-wow-delay="300ms">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg></div>
+            <div>
+              <h3>Filtri rapidi</h3>
+              <p>Filtra per bar, ristorante, parcheggio, accessibilità, ombrelloni, lettini e altri servizi.</p>
+            </div>
+          </article>
+          <article class="fbox wow fadeInUp" data-wow-delay="300ms">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+            <div>
+              <h3>Recensioni</h3>
+              <p>Opinioni e valutazioni reali per scegliere con fiducia la tua giornata al mare.</p>
+            </div>
+          </article>
+          <article class="fbox wow fadeInUp" data-wow-delay="300ms">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div>
+              <h3>Contatto diretto</h3>
+              <p>Chiama, visita il sito o ottieni le indicazioni con un tocco, direttamente dalla scheda.</p>
+            </div>
+          </article>
+          <article class="fbox wow fadeInUp" data-wow-delay="300ms">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
+            <div>
+              <h3>Notifiche</h3>
+              <p>Ricevi eventi, offerte e novità in tempo reale dagli stabilimenti che hai salvato.</p>
+            </div>
+          </article>
+          <article class="fbox wow fadeInUp" data-wow-delay="300ms">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+            <div>
+              <h3>Spiagge segrete</h3>
+              <p>Calette, spot nascosti e luoghi speciali suggeriti dalla community di Coastly.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PER GESTORI — split invertito -->
+    <section class="section">
+      <div class="container split">
+        <div>
+          <span class="section-id wow fadeInUp" data-wow-delay="300ms">Per utenti e gestori</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Schede chiare, clienti più vicini, gestione più semplice</h2>
           <p class="wow fadeInUp" data-wow-delay="500ms">Coastly collega chi cerca il mare a chi lo gestisce. Ogni scheda valorizza il tuo stabilimento con foto, servizi, contatti e aggiornamenti sempre attuali.</p>
           <ul class="check-list">
             <li class="wow fadeInUp" data-wow-delay="600ms">Foto e servizi sempre in primo piano</li>
             <li class="wow fadeInUp" data-wow-delay="700ms">Recensioni e preferiti che costruiscono fiducia</li>
             <li class="wow fadeInUp" data-wow-delay="800ms">Notifiche push per offerte, eventi e disponibilità</li>
           </ul>
-          <a class="solid-button wow fadeInUp" data-wow-delay="900ms" href="mailto:info@coastly.eu?subject=Voglio%20rivendicare%20il%20mio%20lido">Rivendica il tuo lido</a>
+          <a class="btn btn-blue wow fadeInUp" data-wow-delay="900ms" href="mailto:info@coastly.eu?subject=Voglio%20rivendicare%20il%20mio%20lido">Rivendica il tuo lido</a>
+        </div>
+        <div class="phone-col wow fadeInUp" data-wow-delay="300ms">
+          <div class="iphone-air">
+            <img src="img/preview-preferiti.jpg?v=2" alt="Schermata scheda lido Coastly">
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section stats-band">
-      <div class="container stats-grid">
-        <div class="stat wow fadeInUp" data-wow-delay="300ms"><strong class="counter" data-target="11000" data-suffix="+">11.000+</strong><span>lidi mappati</span></div>
-        <div class="stat wow fadeInUp" data-wow-delay="400ms"><strong class="counter" data-target="15">15</strong><span>regioni costiere</span></div>
-        <div class="stat wow fadeInUp" data-wow-delay="500ms"><strong class="counter" data-target="7500">7.500</strong><span>km di costa</span></div>
-        <div class="stat wow fadeInUp" data-wow-delay="600ms"><strong class="counter" data-target="4.8" data-decimals="1">4.8</strong><span>rating medio</span></div>
-      </div>
-    </section>
-
-    <section class="section alt" id="screenshot">
+    <!-- SCREENSHOT — grigio chiaro -->
+    <section class="section grey tall" id="screenshot">
       <div class="container">
         <div class="section-title">
-          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Screenshot</span>
-          <h2 class="wow fadeInUp" data-wow-delay="400ms">L'esperienza Coastly, in anteprima.</h2>
+          <span class="section-id wow fadeInUp" data-wow-delay="300ms">Screenshot</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">L'esperienza Coastly, in anteprima</h2>
           <p class="wow fadeInUp" data-wow-delay="500ms">Quattro schermate per scoprire ricerca, mappa, dati del mare in tempo reale e schede dei lidi.</p>
         </div>
         <div class="screens">
-          <figure class="shot wow fadeInUp" data-wow-delay="300ms">
-            <div class="iphone-air">
-              <img src="img/preview-home.jpg?v=2" alt="Schermata home Coastly">
-            </div>
+          <figure class="iphone-air wow fadeInUp" data-wow-delay="300ms" style="margin:0 auto">
+            <img src="img/preview-home.jpg?v=2" alt="Schermata home Coastly">
           </figure>
-          <figure class="shot wow fadeInUp" data-wow-delay="300ms">
-            <div class="iphone-air">
-              <img src="img/preview-mappa.jpg?v=2" alt="Schermata mappa Coastly">
-            </div>
+          <figure class="iphone-air wow fadeInUp" data-wow-delay="300ms" style="margin:0 auto">
+            <img src="img/preview-mappa.jpg?v=2" alt="Schermata mappa Coastly">
           </figure>
-          <figure class="shot wow fadeInUp" data-wow-delay="300ms">
-            <div class="iphone-air">
-              <img src="img/preview-mare.jpg?v=2" alt="Schermata mare in tempo reale Coastly">
-            </div>
+          <figure class="iphone-air wow fadeInUp" data-wow-delay="300ms" style="margin:0 auto">
+            <img src="img/preview-mare.jpg?v=2" alt="Schermata mare in tempo reale Coastly">
           </figure>
-          <figure class="shot wow fadeInUp" data-wow-delay="300ms">
-            <div class="iphone-air">
-              <img src="img/preview-preferiti.jpg?v=2" alt="Schermata scheda lido Coastly">
-            </div>
+          <figure class="iphone-air wow fadeInUp" data-wow-delay="300ms" style="margin:0 auto">
+            <img src="img/section-dettaglio.jpg" alt="Schermata dettaglio lido Coastly">
           </figure>
         </div>
       </div>
     </section>
 
-    <section class="section" id="video">
+    <!-- VIDEO -->
+    <section class="section tall" id="video">
       <div class="container">
         <div class="section-title">
-          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Video</span>
-          <h2 class="wow fadeInUp" data-wow-delay="400ms">Coastly in azione.</h2>
+          <span class="section-id wow fadeInUp" data-wow-delay="300ms">Video</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Coastly in azione</h2>
           <p class="wow fadeInUp" data-wow-delay="500ms">Guarda come funziona l'app: ricerca, mappa e schede dei lidi in pochi tocchi.</p>
         </div>
         <div class="videos wow fadeInUp" data-wow-delay="300ms">
@@ -1364,26 +1117,25 @@
       </div>
     </section>
 
-    <section class="section">
+    <!-- DOWNLOAD CTA — stile download-5: foto parallax + badge -->
+    <section class="download-cta">
       <div class="container">
-        <div class="newsletter wow fadeInUp" data-wow-delay="300ms">
-          <div>
-            <h2>Resta aggiornato su Coastly.</h2>
-            <p>Novità sull'app, nuove località e strumenti pensati per i gestori. Niente spam, promesso.</p>
-          </div>
-          <form class="signup" action="mailto:info@coastly.eu" method="post" enctype="text/plain">
-            <input type="email" name="email" placeholder="La tua email" aria-label="La tua email">
-            <button type="submit">Iscriviti</button>
-          </form>
+        <h2 class="wow fadeInUp" data-wow-delay="300ms">Il tuo posto in prima fila sul mare</h2>
+        <p class="wow fadeInUp" data-wow-delay="400ms">Scarica Coastly gratis e porta con te tutta la costa italiana, dal primo bagno di stagione all'ultimo tramonto.</p>
+        <div class="actions wow fadeInUp" data-wow-delay="500ms">
+          <a class="store-button" href="https://apps.apple.com/it/app/coastly/id6778557562" target="_blank" rel="noopener" aria-label="Scarica Coastly su App Store">
+            <img src="img/app-store-coastly.png" alt="Scarica su App Store">
+          </a>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <!-- FAQ — flat a due colonne -->
+    <section class="section tall">
       <div class="container">
         <div class="section-title">
-          <span class="kicker wow fadeInUp" data-wow-delay="300ms">FAQ</span>
-          <h2 class="wow fadeInUp" data-wow-delay="400ms">Domande frequenti.</h2>
+          <span class="section-id wow fadeInUp" data-wow-delay="300ms">FAQ</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Domande frequenti</h2>
           <p class="wow fadeInUp" data-wow-delay="500ms">Tutto quello che c'è da sapere su Coastly, per utenti e gestori.</p>
         </div>
         <div class="faq-grid">
@@ -1407,43 +1159,82 @@
       </div>
     </section>
 
-    <section class="section" id="contatti">
+    <!-- NEWSLETTER — grigio chiaro, form a pillola -->
+    <section class="section grey tall">
+      <div class="container newsletter">
+        <div>
+          <h2 class="wow fadeInUp" data-wow-delay="300ms">Resta aggiornato su Coastly</h2>
+          <p class="wow fadeInUp" data-wow-delay="400ms">Novità sull'app, nuove località e strumenti pensati per i gestori. Niente spam, promesso.</p>
+        </div>
+        <form class="signup wow fadeInUp" data-wow-delay="500ms" action="mailto:info@coastly.eu" method="post" enctype="text/plain">
+          <input type="email" name="email" placeholder="La tua email" aria-label="La tua email">
+          <button class="btn btn-blue" type="submit">Iscriviti</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- CONTATTI -->
+    <section class="section tall" id="contatti">
       <div class="container">
         <div class="section-title">
-          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Contatti</span>
-          <h2 class="wow fadeInUp" data-wow-delay="400ms">Parliamo di Coastly.</h2>
+          <span class="section-id wow fadeInUp" data-wow-delay="300ms">Contatti</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Parliamo di Coastly</h2>
           <p class="wow fadeInUp" data-wow-delay="500ms">Richiedi informazioni, segnala un lido o avvia la rivendicazione della tua scheda: ti rispondiamo al più presto.</p>
         </div>
         <div class="contact-grid">
-          <aside class="contact-box contact-list wow fadeInLeft" data-wow-delay="300ms">
+          <aside class="contact-list wow fadeInLeft" data-wow-delay="300ms">
             <div><strong>Email</strong><a href="mailto:info@coastly.eu">info@coastly.eu</a></div>
             <div><strong>Area</strong><span>Tutta la costa italiana</span></div>
             <div><strong>Per gestori</strong><span>Rivendicazione schede e notifiche locali</span></div>
           </aside>
-          <form class="contact-box contact-form wow fadeInRight" data-wow-delay="300ms" action="https://formspree.io/f/mykaoyjq" method="POST">
+          <form class="contact-form wow fadeInRight" data-wow-delay="300ms" action="https://formspree.io/f/mykaoyjq" method="POST">
             <input name="nome" type="text" placeholder="Nome" aria-label="Nome" required>
             <input name="email" type="email" placeholder="Email" aria-label="Email" required>
             <textarea name="messaggio" placeholder="Messaggio" aria-label="Messaggio" required></textarea>
-            <button class="solid-button" type="submit">Invia messaggio</button>
+            <button class="btn btn-blue" type="submit">Invia messaggio</button>
           </form>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- FOOTER chiaro a colonne (stile NextApp) -->
   <footer class="footer">
-    <div class="container footer-inner">
-      <a class="brand" href="#home">
-        <img src="img/logo.png" alt="">
-        <span>Coastly</span>
-      </a>
-      <div>© <span id="year"></span> Coastly. Tutti i lidi d'Italia.</div>
-      <nav class="footer-links" aria-label="Link footer">
-        <a href="#funzioni">Funzioni</a>
-        <a href="#contatti">Contatti</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="termini.html">Termini</a>
-      </nav>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="#home">
+            <img src="img/logo.png" alt="">
+            <span>Coastly</span>
+          </a>
+          <p class="footer-blurb">Tutti i lidi d'Italia in un'unica app: servizi, foto, recensioni e dati del mare in tempo reale.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Esplora</h4>
+          <ul>
+            <li><a href="#funziona">Come funziona</a></li>
+            <li><a href="#funzioni">Funzioni</a></li>
+            <li><a href="#screenshot">Screenshot</a></li>
+            <li><a href="#video">Video</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legale</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="termini.html">Termini</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contatti</h4>
+          <ul>
+            <li><a href="mailto:info@coastly.eu">info@coastly.eu</a></li>
+            <li><a href="#contatti">Scrivici</a></li>
+            <li><a href="https://apps.apple.com/it/app/coastly/id6778557562" target="_blank" rel="noopener">App Store</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">© <span id="year"></span> Coastly. Tutti i lidi d'Italia.</div>
     </div>
   </footer>
 
@@ -1455,6 +1246,13 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     (function () {
+      var topbar = document.querySelector(".topbar");
+      function onScroll() {
+        topbar.classList.toggle("scrolled", window.scrollY > 10);
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
       var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       var wows = document.querySelectorAll(".wow");
       var counters = document.querySelectorAll(".counter");
