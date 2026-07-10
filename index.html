@@ -953,6 +953,81 @@
     font-weight: 700;
   }
 
+  /* Animazioni reveal allo scroll — stesse curve/keyframes del tema NextApp (WOW.js + animate.css) */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translate3d(0, 30%, 0); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translate3d(-20%, 0, 0); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translate3d(20%, 0, 0); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .wow {
+    visibility: hidden;
+  }
+
+  .wow.animated {
+    visibility: visible;
+    animation-duration: 1.2s;
+    animation-fill-mode: both;
+  }
+
+  .animated.fadeInUp { animation-name: fadeInUp; }
+  .animated.fadeInLeft { animation-name: fadeInLeft; }
+  .animated.fadeInRight { animation-name: fadeInRight; }
+
+  .wow.wow-done {
+    visibility: visible;
+    animation: none;
+  }
+
+  .step,
+  .feature,
+  .review,
+  .faq-item,
+  .post {
+    transition: transform .35s ease, box-shadow .35s ease;
+  }
+
+  .step:hover,
+  .feature:hover,
+  .review:hover,
+  .faq-item:hover,
+  .post:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 26px 60px rgba(10, 42, 108, .14);
+  }
+
+  .stats-band {
+    background-attachment: fixed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wow {
+      visibility: visible;
+    }
+
+    .wow,
+    .wow.animated {
+      animation: none !important;
+    }
+
+    .step:hover,
+    .feature:hover,
+    .review:hover,
+    .faq-item:hover,
+    .post:hover {
+      transform: none;
+    }
+  }
+
   @media (max-width: 980px) {
     .nav {
       gap: 14px;
@@ -1016,6 +1091,10 @@
       padding: 96px 0 72px;
       display: flex;
       align-items: center;
+      background-attachment: scroll;
+    }
+
+    .stats-band {
       background-attachment: scroll;
     }
 
@@ -1105,10 +1184,10 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <span class="eyebrow">Tutto il mare italiano in un'app</span>
-          <h1>Trova il tuo lido perfetto in pochi secondi.</h1>
-          <p class="hero-text">Migliaia di stabilimenti balneari italiani con servizi, foto, recensioni e dati del mare in tempo reale, riuniti in un'unica app. Cerca, confronta e salva i tuoi preferiti.</p>
-          <div class="actions" id="scarica">
+          <span class="eyebrow wow fadeInUp" data-wow-delay="300ms">Tutto il mare italiano in un'app</span>
+          <h1 class="wow fadeInUp" data-wow-delay="400ms">Trova il tuo lido perfetto in pochi secondi.</h1>
+          <p class="hero-text wow fadeInUp" data-wow-delay="600ms">Migliaia di stabilimenti balneari italiani con servizi, foto, recensioni e dati del mare in tempo reale, riuniti in un'unica app. Cerca, confronta e salva i tuoi preferiti.</p>
+          <div class="actions wow fadeInUp" data-wow-delay="800ms" id="scarica">
             <a class="store-button" href="https://apps.apple.com/it/app/coastly/id6778557562" target="_blank" rel="noopener" aria-label="Scarica Coastly su App Store">
               <img src="img/app-store-coastly.png" alt="Scarica su App Store">
             </a>
@@ -1117,7 +1196,7 @@
         </div>
 
         <div class="phone-stage" aria-label="Anteprima app Coastly">
-          <div class="iphone-air header-device-main">
+          <div class="iphone-air header-device-main wow fadeInRight" data-wow-delay="500ms">
             <img src="img/header-detail-coastly.jpg" alt="Schermata dettaglio Coastly Beach Club">
           </div>
         </div>
@@ -1127,22 +1206,22 @@
     <section class="section" id="funziona">
       <div class="container">
         <div class="section-title">
-          <span class="kicker">Come funziona</span>
-          <h2>Dall'idea di mare alla scelta giusta, in tre passi.</h2>
-          <p>Trovare il lido perfetto non è mai stato così semplice: cerca, confronta e salva in pochi tocchi.</p>
+          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Come funziona</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Dall'idea di mare alla scelta giusta, in tre passi.</h2>
+          <p class="wow fadeInUp" data-wow-delay="500ms">Trovare il lido perfetto non è mai stato così semplice: cerca, confronta e salva in pochi tocchi.</p>
         </div>
         <div class="steps">
-          <article class="step">
+          <article class="step wow fadeInUp" data-wow-delay="300ms">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg></div>
             <h3>Cerca</h3>
             <p>Cerca per località, nome o servizio e scopri subito gli stabilimenti più vicini a te.</p>
           </article>
-          <article class="step">
+          <article class="step wow fadeInUp" data-wow-delay="300ms">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
             <h3>Confronta</h3>
             <p>Confronta foto, servizi, recensioni e distanza per scegliere con sicurezza, prima di partire.</p>
           </article>
-          <article class="step">
+          <article class="step wow fadeInUp" data-wow-delay="300ms">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
             <h3>Salva</h3>
             <p>Salva i tuoi lidi preferiti e ricevi aggiornamenti su offerte, eventi e disponibilità.</p>
@@ -1154,37 +1233,37 @@
     <section class="section alt" id="funzioni">
       <div class="container">
         <div class="section-title">
-          <span class="kicker">Funzioni</span>
-          <h2>Pensata su misura per la costa italiana.</h2>
-          <p>Tutto ciò che serve per vivere il mare al meglio, in un'unica esperienza curata nei dettagli.</p>
+          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Funzioni</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Pensata su misura per la costa italiana.</h2>
+          <p class="wow fadeInUp" data-wow-delay="500ms">Tutto ciò che serve per vivere il mare al meglio, in un'unica esperienza curata nei dettagli.</p>
         </div>
         <div class="feature-grid">
-          <article class="feature">
+          <article class="feature wow fadeInUp" data-wow-delay="300ms">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16"/><path d="M9 20h6"/><path d="M3.5 11a8.5 8.5 0 0 1 17 0c-2-1.4-4-1.4-6 0-1.5-1.4-3.5-1.4-5 0-2-1.4-4-1.4-6 0Z"/></svg></div>
             <h3>11.000+ lidi</h3>
             <p>Stabilimenti e spiagge attrezzate di tutta Italia, organizzati per posizione, servizi e categoria.</p>
           </article>
-          <article class="feature">
+          <article class="feature wow fadeInUp" data-wow-delay="300ms">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg></div>
             <h3>Filtri rapidi</h3>
             <p>Filtra per bar, ristorante, parcheggio, accessibilità, ombrelloni, lettini e altri servizi.</p>
           </article>
-          <article class="feature">
+          <article class="feature wow fadeInUp" data-wow-delay="300ms">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
             <h3>Recensioni</h3>
             <p>Opinioni e valutazioni reali per scegliere con fiducia la tua giornata al mare.</p>
           </article>
-          <article class="feature">
+          <article class="feature wow fadeInUp" data-wow-delay="300ms">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
             <h3>Contatto diretto</h3>
             <p>Chiama, visita il sito o ottieni le indicazioni con un tocco, direttamente dalla scheda.</p>
           </article>
-          <article class="feature">
+          <article class="feature wow fadeInUp" data-wow-delay="300ms">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
             <h3>Notifiche</h3>
             <p>Ricevi eventi, offerte e novità in tempo reale dagli stabilimenti che hai salvato.</p>
           </article>
-          <article class="feature">
+          <article class="feature wow fadeInUp" data-wow-delay="300ms">
             <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
             <h3>Spiagge segrete</h3>
             <p>Calette, spot nascosti e luoghi speciali suggeriti dalla community di Coastly.</p>
@@ -1195,7 +1274,7 @@
 
     <section class="section">
       <div class="container split">
-        <div class="media-collage">
+        <div class="media-collage wow fadeInLeft" data-wow-delay="300ms">
           <div class="iphone-air">
             <img src="img/section-dettaglio.jpg" alt="Schermata dettaglio Coastly Beach Club">
           </div>
@@ -1204,52 +1283,52 @@
           </div>
         </div>
         <div>
-          <span class="kicker">Per utenti e gestori</span>
-          <h2>Schede chiare, clienti più vicini, gestione più semplice.</h2>
-          <p>Coastly collega chi cerca il mare a chi lo gestisce. Ogni scheda valorizza il tuo stabilimento con foto, servizi, contatti e aggiornamenti sempre attuali.</p>
+          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Per utenti e gestori</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Schede chiare, clienti più vicini, gestione più semplice.</h2>
+          <p class="wow fadeInUp" data-wow-delay="500ms">Coastly collega chi cerca il mare a chi lo gestisce. Ogni scheda valorizza il tuo stabilimento con foto, servizi, contatti e aggiornamenti sempre attuali.</p>
           <ul class="check-list">
-            <li>Foto e servizi sempre in primo piano</li>
-            <li>Recensioni e preferiti che costruiscono fiducia</li>
-            <li>Notifiche push per offerte, eventi e disponibilità</li>
+            <li class="wow fadeInUp" data-wow-delay="600ms">Foto e servizi sempre in primo piano</li>
+            <li class="wow fadeInUp" data-wow-delay="700ms">Recensioni e preferiti che costruiscono fiducia</li>
+            <li class="wow fadeInUp" data-wow-delay="800ms">Notifiche push per offerte, eventi e disponibilità</li>
           </ul>
-          <a class="solid-button" href="mailto:info@coastly.eu?subject=Voglio%20rivendicare%20il%20mio%20lido">Rivendica il tuo lido</a>
+          <a class="solid-button wow fadeInUp" data-wow-delay="900ms" href="mailto:info@coastly.eu?subject=Voglio%20rivendicare%20il%20mio%20lido">Rivendica il tuo lido</a>
         </div>
       </div>
     </section>
 
     <section class="section stats-band">
       <div class="container stats-grid">
-        <div class="stat"><strong>11.000+</strong><span>lidi mappati</span></div>
-        <div class="stat"><strong>15</strong><span>regioni costiere</span></div>
-        <div class="stat"><strong>7.500</strong><span>km di costa</span></div>
-        <div class="stat"><strong>4.8</strong><span>rating medio</span></div>
+        <div class="stat wow fadeInUp" data-wow-delay="300ms"><strong class="counter" data-target="11000" data-suffix="+">11.000+</strong><span>lidi mappati</span></div>
+        <div class="stat wow fadeInUp" data-wow-delay="400ms"><strong class="counter" data-target="15">15</strong><span>regioni costiere</span></div>
+        <div class="stat wow fadeInUp" data-wow-delay="500ms"><strong class="counter" data-target="7500">7.500</strong><span>km di costa</span></div>
+        <div class="stat wow fadeInUp" data-wow-delay="600ms"><strong class="counter" data-target="4.8" data-decimals="1">4.8</strong><span>rating medio</span></div>
       </div>
     </section>
 
     <section class="section alt" id="screenshot">
       <div class="container">
         <div class="section-title">
-          <span class="kicker">Screenshot</span>
-          <h2>L'esperienza Coastly, in anteprima.</h2>
-          <p>Quattro schermate per scoprire ricerca, mappa, dati del mare in tempo reale e schede dei lidi.</p>
+          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Screenshot</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">L'esperienza Coastly, in anteprima.</h2>
+          <p class="wow fadeInUp" data-wow-delay="500ms">Quattro schermate per scoprire ricerca, mappa, dati del mare in tempo reale e schede dei lidi.</p>
         </div>
         <div class="screens">
-          <figure class="shot">
+          <figure class="shot wow fadeInUp" data-wow-delay="300ms">
             <div class="iphone-air">
               <img src="img/preview-home.jpg?v=2" alt="Schermata home Coastly">
             </div>
           </figure>
-          <figure class="shot">
+          <figure class="shot wow fadeInUp" data-wow-delay="300ms">
             <div class="iphone-air">
               <img src="img/preview-mappa.jpg?v=2" alt="Schermata mappa Coastly">
             </div>
           </figure>
-          <figure class="shot">
+          <figure class="shot wow fadeInUp" data-wow-delay="300ms">
             <div class="iphone-air">
               <img src="img/preview-mare.jpg?v=2" alt="Schermata mare in tempo reale Coastly">
             </div>
           </figure>
-          <figure class="shot">
+          <figure class="shot wow fadeInUp" data-wow-delay="300ms">
             <div class="iphone-air">
               <img src="img/preview-preferiti.jpg?v=2" alt="Schermata scheda lido Coastly">
             </div>
@@ -1261,11 +1340,11 @@
     <section class="section" id="video">
       <div class="container">
         <div class="section-title">
-          <span class="kicker">Video</span>
-          <h2>Coastly in azione.</h2>
-          <p>Guarda come funziona l'app: ricerca, mappa e schede dei lidi in pochi tocchi.</p>
+          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Video</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Coastly in azione.</h2>
+          <p class="wow fadeInUp" data-wow-delay="500ms">Guarda come funziona l'app: ricerca, mappa e schede dei lidi in pochi tocchi.</p>
         </div>
-        <div class="videos">
+        <div class="videos wow fadeInUp" data-wow-delay="300ms">
           <div class="iphone-air">
             <video controls playsinline preload="metadata">
               <source src="video/promo-1.mp4#t=0.1" type="video/mp4">
@@ -1287,7 +1366,7 @@
 
     <section class="section">
       <div class="container">
-        <div class="newsletter">
+        <div class="newsletter wow fadeInUp" data-wow-delay="300ms">
           <div>
             <h2>Resta aggiornato su Coastly.</h2>
             <p>Novità sull'app, nuove località e strumenti pensati per i gestori. Niente spam, promesso.</p>
@@ -1303,24 +1382,24 @@
     <section class="section">
       <div class="container">
         <div class="section-title">
-          <span class="kicker">FAQ</span>
-          <h2>Domande frequenti.</h2>
-          <p>Tutto quello che c'è da sapere su Coastly, per utenti e gestori.</p>
+          <span class="kicker wow fadeInUp" data-wow-delay="300ms">FAQ</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Domande frequenti.</h2>
+          <p class="wow fadeInUp" data-wow-delay="500ms">Tutto quello che c'è da sapere su Coastly, per utenti e gestori.</p>
         </div>
         <div class="faq-grid">
-          <article class="faq-item">
+          <article class="faq-item wow fadeInUp" data-wow-delay="300ms">
             <h3>Coastly è gratis?</h3>
             <p>Sì. Coastly è gratuita per chi cerca il proprio lido. I gestori possono iniziare con una scheda base senza alcun costo.</p>
           </article>
-          <article class="faq-item">
+          <article class="faq-item wow fadeInUp" data-wow-delay="300ms">
             <h3>Posso rivendicare il mio stabilimento?</h3>
             <p>Certo. Contatta il nostro team per verificare la tua identità e attivare la scheda ufficiale del tuo lido.</p>
           </article>
-          <article class="faq-item">
+          <article class="faq-item wow fadeInUp" data-wow-delay="300ms">
             <h3>Le informazioni sono aggiornabili?</h3>
             <p>Sempre. Ogni scheda può includere contatti, servizi, foto, periodi di apertura e aggiornamenti stagionali.</p>
           </article>
-          <article class="faq-item">
+          <article class="faq-item wow fadeInUp" data-wow-delay="300ms">
             <h3>Funziona in tutta Italia?</h3>
             <p>Sì. Coastly copre l'intera costa italiana, con migliaia di stabilimenti e località balneari.</p>
           </article>
@@ -1331,17 +1410,17 @@
     <section class="section" id="contatti">
       <div class="container">
         <div class="section-title">
-          <span class="kicker">Contatti</span>
-          <h2>Parliamo di Coastly.</h2>
-          <p>Richiedi informazioni, segnala un lido o avvia la rivendicazione della tua scheda: ti rispondiamo al più presto.</p>
+          <span class="kicker wow fadeInUp" data-wow-delay="300ms">Contatti</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Parliamo di Coastly.</h2>
+          <p class="wow fadeInUp" data-wow-delay="500ms">Richiedi informazioni, segnala un lido o avvia la rivendicazione della tua scheda: ti rispondiamo al più presto.</p>
         </div>
         <div class="contact-grid">
-          <aside class="contact-box contact-list">
+          <aside class="contact-box contact-list wow fadeInLeft" data-wow-delay="300ms">
             <div><strong>Email</strong><a href="mailto:info@coastly.eu">info@coastly.eu</a></div>
             <div><strong>Area</strong><span>Tutta la costa italiana</span></div>
             <div><strong>Per gestori</strong><span>Rivendicazione schede e notifiche locali</span></div>
           </aside>
-          <form class="contact-box contact-form" action="https://formspree.io/f/mykaoyjq" method="POST">
+          <form class="contact-box contact-form wow fadeInRight" data-wow-delay="300ms" action="https://formspree.io/f/mykaoyjq" method="POST">
             <input name="nome" type="text" placeholder="Nome" aria-label="Nome" required>
             <input name="email" type="email" placeholder="Email" aria-label="Email" required>
             <textarea name="messaggio" placeholder="Messaggio" aria-label="Messaggio" required></textarea>
@@ -1368,8 +1447,71 @@
     </div>
   </footer>
 
+  <noscript>
+    <style>.wow { visibility: visible; }</style>
+  </noscript>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var wows = document.querySelectorAll(".wow");
+      var counters = document.querySelectorAll(".counter");
+
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        wows.forEach(function (el) { el.classList.add("animated", "wow-done"); });
+        return;
+      }
+
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          el.style.animationDelay = el.getAttribute("data-wow-delay") || "0ms";
+          el.classList.add("animated");
+          el.addEventListener("animationend", function () {
+            el.classList.add("wow-done");
+            el.style.animationDelay = "";
+          }, { once: true });
+          revealObserver.unobserve(el);
+        });
+      }, { rootMargin: "0px 0px -60px 0px" });
+
+      wows.forEach(function (el) { revealObserver.observe(el); });
+
+      function formatCount(value, decimals) {
+        if (decimals > 0) return value.toFixed(decimals);
+        return String(Math.round(value)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      }
+
+      function runCounter(el) {
+        var target = parseFloat(el.getAttribute("data-target"));
+        var decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);
+        var suffix = el.getAttribute("data-suffix") || "";
+        var duration = 1800;
+        var start = performance.now();
+
+        function frame(now) {
+          var progress = Math.min((now - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = formatCount(target * eased, decimals) + suffix;
+          if (progress < 1) requestAnimationFrame(frame);
+        }
+
+        requestAnimationFrame(frame);
+      }
+
+      var counterObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          runCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.4 });
+
+      counters.forEach(function (el) { counterObserver.observe(el); });
+    })();
   </script>
 </body>
 </html>
