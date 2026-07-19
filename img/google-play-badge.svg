@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" width="300" height="100" role="img" aria-label="Presto su Google Play">
+  <rect x="1.5" y="1.5" width="297" height="97" rx="16" fill="#000000" stroke="#a6a6a6" stroke-width="2"/>
+  <path d="M41 29 L41 71 L73 50 Z" fill="#ffffff" stroke="#ffffff" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="90" y="41" fill="#ffffff" font-family="'Roboto','Helvetica Neue',Arial,sans-serif" font-size="14.5" font-weight="500" letter-spacing="2.5">PRESTO SU</text>
+  <text x="88" y="80" fill="#ffffff" font-family="'Roboto','Helvetica Neue',Arial,sans-serif" font-size="34" font-weight="500" letter-spacing="0.3">Google Play</text>
+</svg>
