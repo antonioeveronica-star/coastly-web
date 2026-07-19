@@ -547,7 +547,8 @@
     border-radius: 8px;
   }
 
-  .store-button.soon {
+  .store-button.soon,
+  .store-badge.soon {
     opacity: .92;
   }
 
@@ -826,6 +827,10 @@
       display: none;
     }
 
+    .nav .store-badge.soon {
+      display: none;
+    }
+
     .hero {
       padding: 130px 0 40px;
     }
@@ -912,6 +917,9 @@
         <a href="#contatti">Contatti</a>
         <a class="store-badge" href="https://apps.apple.com/it/app/coastly/id6778557562" target="_blank" rel="noopener" aria-label="Scarica Coastly su App Store">
           <img src="img/app-store-coastly.png" alt="Scarica su App Store">
+        </a>
+        <a class="store-badge soon" href="#contatti" title="L'app Android sarà disponibile a breve" aria-label="Coastly su Google Play — presto disponibile">
+          <img src="img/google-play-badge.svg" alt="Presto su Google Play">
         </a>
       </nav>
     </div>
