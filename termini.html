@@ -92,5 +92,17 @@
 </footer>
 
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script>
+  (function () {
+    try {
+      fetch('https://coastly-api-j4hk.onrender.com/site/visit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: location.pathname }),
+        keepalive: true
+      }).catch(function () {});
+    } catch (e) {}
+  })();
+</script>
 </body>
 </html>

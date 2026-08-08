@@ -1565,5 +1565,19 @@
       counters.forEach(function (el) { counterObserver.observe(el); });
     })();
   </script>
+  <script>
+    // Conteggio visite (nessun cookie, nessun dato personale): un ping
+    // al backend Coastly ad ogni caricamento pagina.
+    (function () {
+      try {
+        fetch('https://coastly-api-j4hk.onrender.com/site/visit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ path: location.pathname }),
+          keepalive: true
+        }).catch(function () {});
+      } catch (e) {}
+    })();
+  </script>
 </body>
 </html>
