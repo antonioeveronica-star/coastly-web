@@ -198,9 +198,64 @@
     border-radius: 7px;
   }
 
+  /* ===== Hero parallax (stile tartarebox: foto fissa, overlay scuro, testo bianco) ===== */
+  .hero-parallax {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 150px 0 100px;
+    text-align: center;
+    color: var(--white);
+    background:
+      linear-gradient(180deg, rgba(8, 16, 32, .58), rgba(8, 16, 32, .32) 45%, rgba(8, 16, 32, .72)),
+      url("img/hero-mare.jpg") center / cover no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+  }
+
+  .hero-parallax .hero-badge {
+    background: rgba(255, 255, 255, .12);
+    border-color: rgba(255, 255, 255, .28);
+    color: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(6px);
+  }
+
+  .hero-parallax .hero-badge strong {
+    color: #fff;
+  }
+
+  .hero-parallax h1 {
+    color: var(--white);
+    text-shadow: 0 2px 24px rgba(0, 0, 0, .25);
+  }
+
+  .hero-parallax .hero-text {
+    color: rgba(255, 255, 255, .88);
+  }
+
+  .hero-parallax .btn-outline {
+    color: var(--white);
+    border-color: rgba(255, 255, 255, .6);
+  }
+
+  .hero-parallax .btn-outline:hover {
+    background: rgba(255, 255, 255, .12);
+    border-color: var(--white);
+  }
+
+  .hero-parallax .actions {
+    margin-bottom: 0;
+  }
+
+  .hero-parallax .store-button img {
+    height: 50px;
+  }
+
   /* ===== Hero (hero-6: bianco, centrato, telefoni sotto) ===== */
   .hero {
-    padding: 170px 0 60px;
+    padding: 90px 0 60px;
     background: var(--white);
     text-align: center;
     overflow: hidden;
@@ -847,7 +902,13 @@
     }
 
     .hero {
-      padding: 130px 0 40px;
+      padding: 60px 0 40px;
+    }
+
+    .hero-parallax {
+      min-height: unset;
+      padding: 120px 0 70px;
+      background-attachment: scroll;
     }
 
     .hero-phones .iphone-air {
@@ -941,17 +1002,25 @@
   </header>
 
   <main id="home">
-    <!-- HERO — stile hero-6: bianco, centrato, telefoni in basso -->
-    <section class="hero">
+    <!-- HERO PARALLAX — stile tartarebox: foto fissa in background, testo bianco centrato, CTA sopra la piega -->
+    <section class="hero-parallax">
       <div class="container">
         <span class="hero-badge wow fadeInUp" data-wow-delay="300ms"><strong>Nuovo</strong> Tutto il mare italiano in un'app</span>
-        <h1 class="wow fadeInUp" data-wow-delay="400ms">Trova il tuo lido perfetto in pochi secondi</h1>
-        <p class="hero-text wow fadeInUp" data-wow-delay="600ms">Migliaia di stabilimenti balneari italiani con servizi, foto, recensioni e dati del mare in tempo reale, riuniti in un'unica app. Cerca, confronta e salva i tuoi preferiti.</p>
+        <h1 class="wow fadeInUp" data-wow-delay="400ms">Trova il tuo angolo di mare perfetto</h1>
+        <p class="hero-text wow fadeInUp" data-wow-delay="600ms">Spiagge, lidi e servizi in Puglia, Sicilia e Sardegna. Scaricala gratis su iOS.</p>
         <div class="actions wow fadeInUp" data-wow-delay="800ms" id="scarica">
-          <a class="btn btn-blue" href="https://apps.apple.com/it/app/coastly/id6778557562" target="_blank" rel="noopener">Scarica l'app</a>
+          <a class="store-button" href="https://apps.apple.com/it/app/coastly/id6778557562" target="_blank" rel="noopener" aria-label="Scarica Coastly su App Store">
+            <img src="img/app-store-coastly.png" alt="Scarica su App Store">
+          </a>
           <a class="btn btn-outline" href="#funziona">Scopri Coastly</a>
         </div>
-        <div class="hero-phones wow fadeInUp" data-wow-delay="1000ms" aria-label="Anteprima app Coastly">
+      </div>
+    </section>
+
+    <!-- HERO PHONES — stile hero-6: bianco, telefoni in evidenza -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-phones wow fadeInUp" data-wow-delay="200ms" aria-label="Anteprima app Coastly">
           <div class="iphone-air">
             <img src="img/section-aggiungi.jpg" alt="Schermata aggiungi struttura Coastly">
           </div>
