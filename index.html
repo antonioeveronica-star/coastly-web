@@ -536,6 +536,89 @@
     color: var(--muted);
   }
 
+  /* ===== Categorie — 5 card fotografiche (Luxury, Family, Pet, Naturist, Calette) ===== */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+  }
+
+  .category-card {
+    position: relative;
+    grid-column: span 2;
+    aspect-ratio: 3 / 4;
+    border-radius: 20px;
+    overflow: hidden;
+    color: var(--white);
+    background: #0a1420;
+  }
+
+  .category-card:nth-child(1),
+  .category-card:nth-child(2) {
+    grid-column: span 3;
+    aspect-ratio: 16 / 11;
+  }
+
+  .category-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s ease;
+  }
+
+  .category-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .category-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(6, 12, 24, .85) 100%);
+  }
+
+  .category-card-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    padding: 22px;
+  }
+
+  .category-kicker {
+    display: inline-block;
+    padding: 5px 12px;
+    margin-bottom: 10px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, .16);
+    backdrop-filter: blur(6px);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+
+  .category-card h3 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .category-card p {
+    margin: 0;
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, .85);
+    font-weight: 300;
+  }
+
+  .category-card.caletta .category-kicker {
+    background: var(--blue);
+  }
+
   /* Check list flat */
   .check-list {
     list-style: none;
@@ -951,6 +1034,17 @@
       gap: 36px;
     }
 
+    .category-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .category-card,
+    .category-card:nth-child(1),
+    .category-card:nth-child(2) {
+      grid-column: span 1;
+      aspect-ratio: 3 / 4;
+    }
+
     .screens .iphone-air,
     .videos .iphone-air {
       max-width: 250px;
@@ -1141,6 +1235,59 @@
               <p>Calette, spot nascosti e luoghi speciali suggeriti dalla community di Coastly.</p>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORIE — 5 card fotografiche: Luxury, Family, Pet, Naturist, Calette -->
+    <section class="section grey tall" id="categorie">
+      <div class="container">
+        <div class="section-title">
+          <span class="section-id wow fadeInUp" data-wow-delay="300ms">Categorie</span>
+          <h2 class="wow fadeInUp" data-wow-delay="400ms">Un mare per ogni desiderio</h2>
+          <p class="wow fadeInUp" data-wow-delay="500ms">Dalle calette segrete ai beach club esclusivi: scegli la categoria che rispecchia la tua giornata di mare.</p>
+        </div>
+        <div class="category-grid">
+          <a class="category-card luxury wow fadeInUp" data-wow-delay="300ms" href="#funziona">
+            <img src="img/categorie/luxury.jpg" alt="Lidi luxury con servizi esclusivi">
+            <div class="category-card-body">
+              <span class="category-kicker">Luxury</span>
+              <h3>Concediti il meglio</h3>
+              <p>Lidi esclusivi e servizi VIP per una giornata di puro relax.</p>
+            </div>
+          </a>
+          <a class="category-card family wow fadeInUp" data-wow-delay="350ms" href="#funziona">
+            <img src="img/categorie/family.jpg" alt="Spiagge family friendly per bambini">
+            <div class="category-card-body">
+              <span class="category-kicker">Family</span>
+              <h3>Viaggia con i piccoli</h3>
+              <p>Acque calme e massimo comfort per tutta la famiglia.</p>
+            </div>
+          </a>
+          <a class="category-card pet wow fadeInUp" data-wow-delay="400ms" href="#funziona">
+            <img src="img/categorie/pet.jpg" alt="Spiagge pet friendly per cani">
+            <div class="category-card-body">
+              <span class="category-kicker">Pet Friendly</span>
+              <h3>Insieme al tuo pet</h3>
+              <p>Spiagge e lidi attrezzati per portare il cane con te.</p>
+            </div>
+          </a>
+          <a class="category-card naturist wow fadeInUp" data-wow-delay="450ms" href="#funziona">
+            <img src="img/categorie/naturist.jpg" alt="Spiagge naturiste autorizzate">
+            <div class="category-card-body">
+              <span class="category-kicker">Naturista</span>
+              <h3>Immergiti nella natura</h3>
+              <p>Zone autorizzate e riservate, libere da ogni convenzione.</p>
+            </div>
+          </a>
+          <a class="category-card caletta wow fadeInUp" data-wow-delay="500ms" href="#funziona">
+            <img src="img/categorie/caletta.jpg" alt="Calette e spiagge nascoste in Italia">
+            <div class="category-card-body">
+              <span class="category-kicker">Calette</span>
+              <h3>Scopri le spiagge segrete</h3>
+              <p>Baie nascoste e calette suggerite dalla community di Coastly, lontane dal turismo di massa.</p>
+            </div>
+          </a>
         </div>
       </div>
     </section>
