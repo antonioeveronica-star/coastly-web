@@ -2,6 +2,7 @@
 [build]
   publish = "."
   command = ""
+  functions = "netlify/functions"
 
 # Disable password protection
 [[basic_auth]]
@@ -34,3 +35,9 @@
   from = "/termini"
   to = "/termini.html"
   status = 200
+
+[[redirects]]
+  from = "/apple-callback"
+  to = "/.netlify/functions/apple-callback"
+  status = 200
+  force = true
