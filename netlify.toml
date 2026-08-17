@@ -41,3 +41,20 @@
   to = "/.netlify/functions/apple-callback"
   status = 200
   force = true
+
+# Proxy della scheda pubblica al backend (Universal Links / App Links)
+[[redirects]]
+  from = "/lido/*"
+  to = "https://coastly-api-j4hk.onrender.com/lido/:splat"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/.well-known/apple-app-site-association"
+  [headers.values]
+    Content-Type = "application/json"
+
+[[headers]]
+  for = "/.well-known/assetlinks.json"
+  [headers.values]
+    Content-Type = "application/json"
