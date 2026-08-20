@@ -294,11 +294,17 @@ body.paused .pulse-dot::before{animation-play-state:paused}
 .store-row a{transition:transform .3s var(--ease)}
 .store-row a:hover{transform:translateY(-3px)}
 
-/* iPhone frame */
-.iphone-frame{position:relative;width:100%;max-width:260px;margin:0 auto;aspect-ratio:9/19.3;
-  border-radius:40px;background:#111318;padding:9px;justify-self:center;align-self:start;flex:none;
+/* iPhone frame, intrinsic-ratio box (padding-top), never CSS aspect-ratio:
+   aspect-ratio has shown inconsistent behavior across browsers when its element
+   sits in a stretched grid/flex track (the box quietly widens past max-width and
+   screen content bleeds past the bezel). padding-top resolves purely against the
+   element's own width, so it stays correct regardless of the parent layout. */
+.iphone-frame{position:relative;width:100%;max-width:260px;margin:0 auto;
+  border-radius:40px;background:#111318;box-sizing:border-box;padding:9px;
+  justify-self:center;align-self:start;flex:none;
   box-shadow:0 24px 50px -22px rgba(14,36,56,.4),0 0 0 1px rgba(14,36,56,.06)}
-.iphone-frame .screen{position:relative;width:100%;height:100%;border-radius:32px;overflow:hidden;background:#000}
+.iphone-frame::before{content:"";display:block;padding-top:214.44%}
+.iphone-frame .screen{position:absolute;inset:9px;border-radius:32px;overflow:hidden;background:#000}
 .iphone-frame .screen img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .iphone-frame .screen video{width:100%;height:100%;object-fit:contain;display:block;background:#000}
 .iphone-frame.small{max-width:210px}
@@ -311,7 +317,6 @@ body.paused .pulse-dot::before{animation-play-state:paused}
 
 /* split layout (come funziona / gestori) */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,64px);align-items:center;justify-items:stretch}
-.split .split-media{justify-self:center}
 @media (max-width:860px){.split{grid-template-columns:1fr}}
 .split.reverse .split-media{order:2}
 @media (max-width:860px){.split.reverse .split-media{order:0}}
