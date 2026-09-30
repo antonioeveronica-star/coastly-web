@@ -2,5 +2,5 @@ wrangler.toml
 .assetsignore
 SKILL.md
 references
-assets/future-video
+future-video
 worker.js
